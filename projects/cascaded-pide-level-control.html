@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case study: cascaded PIDE level control on Allen-Bradley CompactLogix with a FactoryTalk View SE operator HMI — by Piyush Shah." />
+  <title>Cascaded PIDE Level Control | Piyush Shah</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar">
+      <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html#projects">All Projects</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
+        <p class="eyebrow">Project Case Study · Winter 2026</p>
+        <h1>Cascaded PIDE Level Control System with FactoryTalk HMI</h1>
+        <p class="lede">
+          A two-loop cascade control system on Allen-Bradley CompactLogix that holds water tank level steady
+          under variable inflow disturbances — paired with a FactoryTalk View SE operator interface built to
+          industrial HMI and alarm-management conventions.
+        </p>
+        <div class="project-facts">
+          <div><strong>Platform</strong><span>Allen-Bradley CompactLogix</span></div>
+          <div><strong>Tools</strong><span>Studio 5000 · FactoryTalk View Studio SE</span></div>
+          <div><strong>Control Strategy</strong><span>Cascade PIDE (level → flow)</span></div>
+          <div><strong>Timeline</strong><span>Winter 2026</span></div>
+        </div>
+        <div class="project-figure">
+          <img src="../assets/images/projects/cascaded-pide-level.svg" alt="System diagram: tank with level transmitter feeding an outer level PIDE loop, cascading a setpoint to an inner flow PIDE loop driving a control valve" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" style="padding-top: 48px;">
+      <div class="container project-content">
+        <h2>Why cascade control?</h2>
+        <p>
+          A single-loop level controller reacts to inflow disturbances only after they have already changed the
+          tank level — by which point the process is off-setpoint. Cascade control fixes this by splitting the
+          job in two: an outer (primary) loop controls tank level and continuously writes its output as the
+          setpoint of an inner (secondary) loop that controls inlet flow. Because the inner flow loop is much
+          faster than the level dynamics, it rejects flow disturbances before they ever reach the tank. This is
+          the same strategy used on real process equipment — boiler drums, surge tanks, and feedwater systems.
+        </p>
+
+        <h2>Control design &amp; PLC implementation</h2>
+        <ul>
+          <li><strong>PIDE function blocks</strong> in Studio 5000 for both loops, configured with
+            engineering-unit scaling so operators see level in percent and flow in real units rather than raw
+            counts.</li>
+          <li><strong>Anti-reset windup and output limiting</strong> configured on both loops, so the
+            controller recovers cleanly when the valve saturates instead of overshooting.</li>
+          <li><strong>Bumpless auto/manual transfer</strong> — operators can take the loop to manual and hand
+            it back to auto without bumping the process, exactly as expected in a plant environment.</li>
+          <li><strong>Cascade linking</strong> — the outer level PIDE writes its control variable to the inner
+            flow PIDE setpoint, with correct initialization handling between the two blocks.</li>
+        </ul>
+
+        <h2>Loop tuning &amp; validation</h2>
+        <p>
+          Both loops were tuned inner-loop-first using the CompactLogix built-in autotuner, then validated
+          against step-response targets: the inner flow loop tuned fast and tight, the outer level loop tuned
+          slower to avoid fighting it. Performance was confirmed by stepping the level setpoint and by
+          introducing inflow disturbances, verifying the cascade rejected disturbances faster and with less
+          deviation than a single-loop configuration.
+        </p>
+
+        <h2>FactoryTalk View SE operator interface</h2>
+        <ul>
+          <li>Animated tank graphic with live level indication and valve position.</li>
+          <li>Real-time PV / SP / CV trend displays for both loops, so tuning behaviour is visible at a glance.</li>
+          <li>Operator setpoint entry, start/stop controls, and auto/manual mode selection.</li>
+          <li>An <strong>ISA-18.2-style tiered alarm banner</strong> — alarms prioritized and annunciated by
+            severity rather than a flat alarm list, following alarm-management good practice.</li>
+        </ul>
+
+        <div class="skill-callout">
+          <h3>What this demonstrates</h3>
+          <p>
+            End-to-end loop ownership on the industry-standard Rockwell platform: control strategy selection,
+            PIDE configuration, tuning methodology, and an operator HMI built to real industrial conventions —
+            not just a lab exercise that lights an indicator.
+          </p>
+        </div>
+
+        <nav class="project-pager" aria-label="Project navigation">
+          <a class="next" href="ai-predictive-maintenance.html">
+            <span class="pager-label">Next project →</span>
+            <span class="pager-title">AI-Assisted Predictive Maintenance System</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="../index.html#projects">All projects</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

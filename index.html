@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio website of Piyush Shah, an Instrumentation and Control Engineering Technology student focused on controls, automation, BAS, PLCs, LabVIEW, and data acquisition." />
-  <title>Piyush Shah | Controls & Automation Portfolio</title>
+  <meta name="description" content="Portfolio of Piyush Shah — Instrumentation & Control Engineering Technologist (graduating Dec 2026). BAS controls, Allen-Bradley PLCs, FactoryTalk HMI, instrumentation loops, and Python/ML for automation." />
+  <title>Piyush Shah | Instrumentation & Controls Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <meta property="og:title" content="Piyush Shah | Instrumentation & Controls Portfolio" />
+  <meta property="og:description" content="BAS controls, Allen-Bradley PLCs, FactoryTalk HMI, instrumentation, and Python/ML for automation. Graduating Dec 2026." />
+  <meta property="og:url" content="https://piyushshah.ca/" />
+  <meta property="og:type" content="website" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,57 +27,72 @@
 <body>
   <header class="site-header" id="top">
     <nav class="navbar">
-      <a href="#top" class="brand">Piyush Shah</a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a class="nav-resume" href="resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
-      </ul>
+      <a href="#top" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a class="nav-resume" href="resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
     </nav>
   </header>
 
   <main>
     <section class="hero section-pad">
       <div class="hero-bg"></div>
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">Instrumentation • Controls • Automation</p>
-          <h1>Hi, I’m <span>Piyush Shah</span></h1>
-          <h2><span id="typedText">Instrumentation & Control Engineering Technology Student</span></h2>
-          <p class="hero-text">
-            I build practical control, monitoring, and data-acquisition systems using sensors, PLC logic,
-            LabVIEW dashboards, Arduino, and Python. I am focused on BAS controls, industrial instrumentation,
-            troubleshooting, and automation projects that connect real hardware with useful software.
-          </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="resume/Piyush_Shah_Resume.pdf" download>Download Resume</a>
-            <a class="btn secondary" href="#projects">View Projects</a>
-          </div>
-          <div class="social-row" aria-label="Professional links">
-            <a href="mailto:piyushshah.icet@gmail.com">Email</a>
-            <a href="https://www.linkedin.com/in/piyush-shah-703963224" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://github.com/piyushshah-icet" target="_blank" rel="noreferrer">GitHub</a>
-          </div>
-        </div>
-        <div class="hero-card reveal">
-          <div class="profile-card">
-            <img src="assets/images/profile.jpg" alt="Piyush Shah" class="profile-photo">
-            <h3>Piyush Shah</h3>
-            <p>Winnipeg, Manitoba</p>
-            <div class="mini-tags">
-              <span>BAS Controls</span>
-              <span>PLC</span>
-              <span>LabVIEW</span>
-              <span>Python</span>
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Instrumentation • Controls • Automation</p>
+            <h1>Hi, I’m <span>Piyush Shah</span></h1>
+            <h2><span id="typedText">Instrumentation & Control Engineering Technologist</span></h2>
+            <p class="hero-text">
+              I design, program, and commission control systems — from 4–20 mA instrumentation loops and
+              Allen-Bradley PLC logic to FactoryTalk HMIs and BACnet/Modbus building automation networks.
+              My computer science background adds Python, data analysis, and machine learning to classical
+              instrumentation — a combination that lets me solve plant-floor problems with modern tools.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="resume/Piyush_Shah_Resume.pdf" download>Download Resume</a>
+              <a class="btn secondary" href="#projects">View Projects</a>
+            </div>
+            <div class="social-row" aria-label="Professional links">
+              <a href="mailto:piyushshah.icet@gmail.com">Email</a>
+              <a href="https://www.linkedin.com/in/piyush-shah-703963224" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href="https://github.com/piyushshah-icet" target="_blank" rel="noreferrer">GitHub</a>
             </div>
           </div>
+          <div class="hero-card reveal">
+            <div class="profile-card">
+              <img src="assets/images/profile.jpg" alt="Piyush Shah" class="profile-photo">
+              <h3>Piyush Shah</h3>
+              <p>Winnipeg, Manitoba</p>
+              <div class="mini-tags">
+                <span>Allen-Bradley PLC</span>
+                <span>BAS Controls</span>
+                <span>FactoryTalk</span>
+                <span>Python · ML</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stats reveal">
+          <div><strong>Graduating Dec 2026</strong><span>Instrumentation &amp; Control Eng. Tech., RRC Polytech</span></div>
+          <div><strong>2 industry roles</strong><span>BAS commissioning co-op + industrial panel building</span></div>
+          <div><strong>5 documented projects</strong><span>PLC, HMI, analog design, and applied ML case studies</span></div>
+          <div><strong>Controls + code</strong><span>Classical instrumentation backed by Python &amp; data skills</span></div>
         </div>
       </div>
     </section>
@@ -72,24 +101,26 @@
       <div class="container two-col">
         <div class="section-heading reveal">
           <p class="eyebrow">About</p>
-          <h2>Controls-focused student with hands-on technical experience.</h2>
+          <h2>Controls-focused technologist with real commissioning experience.</h2>
         </div>
         <div class="content reveal">
           <p>
-            I am an Instrumentation and Control Engineering Technology student at Red River College Polytechnic
-            with hands-on experience in industrial instrumentation, control systems, sensor integration, and
-            troubleshooting. My background combines electrical wiring, programming, data acquisition, and real-world
-            technical work in control panel assembly and testing.
+            I am an Instrumentation and Control Engineering Technology student at Red River College Polytechnic,
+            graduating December 2026, currently on co-op commissioning building automation systems on live
+            BACnet MS/TP and Modbus RTU networks. Before that, I built and tested 50+ industrial control panels
+            as an electrical technician — so I know controls from the wire-and-terminal level up to the
+            program-and-network level.
           </p>
           <p>
-            I am especially interested in building automation systems, PLC programming, 4–20 mA instrumentation loops,
-            LabVIEW HMI development, Arduino-based monitoring systems, and practical automation projects that solve
-            real problems.
+            My lab and project work centres on Allen-Bradley CompactLogix, Studio 5000, FactoryTalk View SE,
+            PID/PIDE loop tuning, ISA-18.2 alarm design, and 4–20 mA instrumentation. Two years of computer
+            science at the University of Manitoba added Python, data analysis, and machine learning — skills I
+            apply to predictive maintenance and SCADA-style data visualization.
           </p>
           <div class="quick-facts">
-            <div><strong>Focus</strong><span>Instrumentation, BAS, Controls</span></div>
+            <div><strong>Focus</strong><span>Instrumentation, Process Automation, BAS</span></div>
             <div><strong>Location</strong><span>Winnipeg, MB</span></div>
-            <div><strong>Portfolio</strong><span>piyushshah.ca</span></div>
+            <div><strong>Available</strong><span>Full-time from Jan 2027 · Co-op now</span></div>
           </div>
         </div>
       </div>
@@ -107,17 +138,19 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="item-header">
-                <h3>BAS Controls Engineer</h3>
+                <h3>BAS Controls Specialist (Co-op)</h3>
                 <span>May 2026 – Present</span>
               </div>
-              <p class="company">ICS Integrated Control Systems · Winnipeg, MB</p>
+              <p class="company">ICS — Integrated Control Solutions · Winnipeg, MB</p>
               <ul>
-                <li>Review mechanical drawings, electrical schematics, control drawings, equipment schedules, 
-                  and sequences of operation to develop complete BAS point lists, controller layouts, network 
-                  architecture, and project documentation.</li>
-                <li>Develop, modify, and troubleshoot EIKON control programs, including equipment logic, 
-                  interlocks, alarms, safeties, scheduling, setpoint control, PID loops, lead/lag rotation, 
-                  and demand-based control sequences.</li>
+                <li>Commission and program building automation systems on live BACnet MS/TP and Modbus RTU
+                  fieldbus networks over RS-485.</li>
+                <li>Configure and troubleshoot HVAC field devices — sensors, actuators, and controllers —
+                  across commercial building installations.</li>
+                <li>Interpret control drawings and sequences of operation to implement and verify correct
+                  system behaviour on-site.</li>
+                <li>Work with project engineers to resolve integration issues between BAS controllers and
+                  third-party equipment.</li>
               </ul>
             </div>
           </article>
@@ -127,13 +160,16 @@
             <div class="timeline-content">
               <div class="item-header">
                 <h3>Electrical Technician</h3>
-                <span>June 2025 – May 2026</span>
+                <span>Jun 2025 – Sep 2025</span>
               </div>
               <p class="company">Tamarack Industries · Winnipeg, MB</p>
               <ul>
-                <li>Assembled and wired industrial control panels and chassis harnesses from schematic drawings.</li>
-                <li>Performed wire cutting, routing, crimping, connector termination, inspection, and functional testing.</li>
-                <li>Worked with engineers to troubleshoot production issues and improve assembly efficiency.</li>
+                <li>Assembled and wired 50+ industrial control panels and chassis harnesses for glycol heating
+                  equipment from schematic drawings, to client specifications and industrial standards.</li>
+                <li>Performed wire cutting, routing, crimping, and connector termination; conducted functional
+                  testing and inspections with near-zero defects in completed units.</li>
+                <li>Collaborated with engineers to troubleshoot production issues, minimizing downtime and
+                  improving assembly efficiency.</li>
               </ul>
             </div>
           </article>
@@ -146,44 +182,106 @@
       <div class="container">
         <div class="section-heading centered reveal">
           <p class="eyebrow">Projects</p>
-          <h2>Technical projects</h2>
+          <h2>Technical project case studies</h2>
+          <p>Each project links to a full write-up covering the design, implementation, and results.</p>
         </div>
         <div class="project-grid">
-          <article class="project-card reveal">
-            <div class="project-icon">AI</div>
-            <h3>AI-Assisted Predictive Maintenance System</h3>
-            <p>
-              Motor health monitoring system using vibration, temperature, and current measurements with Arduino-based
-              data acquisition, alarm logic, machine-learning classification, and local SCADA-style visualization.
-            </p>
-            <ul class="project-tags">
-              <li>Arduino</li><li>Python</li><li>LabVIEW</li><li>Sensors</li>
-            </ul>
-          </article>
 
-          <article class="project-card reveal">
-            <div class="project-icon">PID</div>
-            <h3>Temperature Monitoring & Control System</h3>
-            <p>
-              Closed-loop temperature monitoring system using thermistors, analog signal conditioning, proportional/PID
-              control logic, real-time data acquisition, and threshold-based alarm logic.
-            </p>
-            <ul class="project-tags">
-              <li>PID</li><li>DAQ</li><li>Thermistors</li><li>Control</li>
-            </ul>
-          </article>
+          <a class="project-card reveal" href="projects/cascaded-pide-level-control.html">
+            <div class="project-banner">
+              <img src="assets/images/projects/cascaded-pide-level.svg" alt="Cascaded PIDE level control system diagram" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-meta">PLC · HMI · Winter 2026</p>
+              <h3>Cascaded PIDE Level Control with FactoryTalk HMI</h3>
+              <p>
+                Two-loop cascade control of tank level on Allen-Bradley CompactLogix — autotuned PIDE
+                instructions, engineering-unit scaling, and a full FactoryTalk View SE operator interface
+                with ISA-18.2-style alarming.
+              </p>
+              <ul class="project-tags">
+                <li>CompactLogix</li><li>Studio 5000</li><li>FactoryTalk View SE</li><li>PIDE</li>
+              </ul>
+              <span class="project-link">Read case study</span>
+            </div>
+          </a>
 
-          <article class="project-card reveal">
-            <div class="project-icon">4-20</div>
-            <h3>RTD Temperature Transmitter Project</h3>
-            <p>
-              RTD-based temperature transmitter that converts resistance change into a standard 4–20 mA signal using
-              an instrumentation amplifier, signal conditioning, and current loop verification.
-            </p>
-            <ul class="project-tags">
-              <li>RTD</li><li>4–20 mA</li><li>Multisim</li><li>Instrumentation</li>
-            </ul>
-          </article>
+          <a class="project-card reveal" href="projects/ai-predictive-maintenance.html">
+            <div class="project-banner">
+              <img src="assets/images/projects/ai-predictive-maintenance.svg" alt="AI-assisted predictive maintenance system diagram" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-meta">Applied ML · Dec 2025 – Feb 2026</p>
+              <h3>AI-Assisted Predictive Maintenance System</h3>
+              <p>
+                Motor health monitoring with vibration, temperature, and current sensing — feature extraction,
+                a Random Forest fault classifier, tiered ISA-18.2 alarm logic, and a live Python Dash
+                SCADA-style dashboard.
+              </p>
+              <ul class="project-tags">
+                <li>Python</li><li>scikit-learn</li><li>Arduino</li><li>Dash</li>
+              </ul>
+              <span class="project-link">Read case study</span>
+            </div>
+          </a>
+
+          <a class="project-card reveal" href="projects/rtd-temperature-transmitter.html">
+            <div class="project-banner">
+              <img src="assets/images/projects/rtd-transmitter.svg" alt="RTD temperature transmitter signal chain diagram" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-meta">Analog Design · Oct – Nov 2025</p>
+              <h3>RTD Temperature Transmitter — 4–20 mA Signal Conditioning</h3>
+              <p>
+                A ground-up analog transmitter converting RTD resistance changes into an industry-standard
+                4–20 mA current loop — instrumentation amplifier design, transistor loop driver, and
+                multi-point calibration verification.
+              </p>
+              <ul class="project-tags">
+                <li>RTD</li><li>4–20 mA</li><li>In-Amp</li><li>Calibration</li>
+              </ul>
+              <span class="project-link">Read case study</span>
+            </div>
+          </a>
+
+          <a class="project-card reveal" href="projects/sfc-gate-control.html">
+            <div class="project-banner">
+              <img src="assets/images/projects/sfc-gate-control.svg" alt="Sequential function chart gate control diagram" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-meta">PLC Sequencing · Winter 2026</p>
+              <h3>Sequential Function Chart — Automated Gate Control</h3>
+              <p>
+                An IEC 61131-3 SFC program on CompactLogix implementing a multi-state gate sequence with
+                deterministic fault handling, safe-state transitions, alarm annunciation, and a dedicated
+                maintenance mode.
+              </p>
+              <ul class="project-tags">
+                <li>CompactLogix</li><li>Studio 5000</li><li>IEC 61131-3</li><li>SFC</li>
+              </ul>
+              <span class="project-link">Read case study</span>
+            </div>
+          </a>
+
+          <a class="project-card reveal" href="projects/pid-temperature-imc.html">
+            <div class="project-banner">
+              <img src="assets/images/projects/pid-temperature-imc.svg" alt="Closed-loop PID temperature control diagram" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-meta">Control Theory · Jan 2026</p>
+              <h3>Closed-Loop PID Temperature Control — IMC Tuning</h3>
+              <p>
+                A PWM/MOSFET-driven heater under closed-loop PID control — open-loop step testing to identify
+                an FOPDT process model, IMC-derived tuning parameters, and documented step-response
+                validation.
+              </p>
+              <ul class="project-tags">
+                <li>PID</li><li>IMC Tuning</li><li>FOPDT</li><li>Arduino</li>
+              </ul>
+              <span class="project-link">Read case study</span>
+            </div>
+          </a>
+
         </div>
       </div>
     </section>
@@ -196,27 +294,39 @@
         </div>
         <div class="skills-grid">
           <div class="skill-group reveal">
-            <h3>Electrical & Wiring</h3>
+            <h3>PLCs &amp; Control Platforms</h3>
             <div class="skill-list">
-              <span>Control Panel Assembly</span><span>Schematic Interpretation</span><span>Wire Routing</span><span>Crimping</span><span>Soldering</span><span>Functional Testing</span>
+              <span>Allen-Bradley CompactLogix</span><span>Studio 5000 Logix Designer</span><span>FactoryTalk View SE</span><span>PID / PIDE Tuning</span><span>IEC 61131-3 SFC</span><span>Arduino</span>
             </div>
           </div>
           <div class="skill-group reveal">
-            <h3>Instrumentation & Controls</h3>
+            <h3>Instrumentation</h3>
             <div class="skill-list">
-              <span>4–20 mA Loops</span><span>Sensor Calibration</span><span>PID Tuning</span><span>PLC Ladder Logic</span><span>LabVIEW HMI</span><span>OPC UA</span>
+              <span>4–20 mA Loops</span><span>RTD / TC / Pressure / Level</span><span>Sensor Calibration</span><span>Loop Commissioning</span><span>P&amp;ID Interpretation</span><span>ISA-5.1 Symbology</span><span>ISA-18.2 Alarms</span>
             </div>
           </div>
           <div class="skill-group reveal">
-            <h3>Automation & DAQ</h3>
+            <h3>Networks &amp; Protocols</h3>
             <div class="skill-list">
-              <span>Arduino</span><span>Signal Conditioning</span><span>Real-time DAQ</span><span>Vibration Monitoring</span><span>Current Monitoring</span><span>Fault Alarms</span>
+              <span>BACnet MS/TP</span><span>Modbus RTU / TCP</span><span>OPC-UA</span><span>RS-485</span><span>BAS Commissioning</span>
             </div>
           </div>
           <div class="skill-group reveal">
-            <h3>Programming & Software</h3>
+            <h3>Electrical &amp; Wiring</h3>
             <div class="skill-list">
-              <span>Python</span><span>C++</span><span>MATLAB</span><span>Multisim</span><span>AutoCAD</span><span>Solid Edge</span><span>Visio</span><span>Excel</span>
+              <span>Control Panel Assembly</span><span>Schematic Interpretation</span><span>Wire Routing &amp; Termination</span><span>Soldering</span><span>Functional Testing</span>
+            </div>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Programming &amp; Data</h3>
+            <div class="skill-list">
+              <span>Python (NumPy · Pandas · scikit-learn)</span><span>C++</span><span>MATLAB</span><span>Grafana</span><span>InfluxDB</span><span>Real-time DAQ</span><span>SCADA Dashboards</span>
+            </div>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Design &amp; Documentation</h3>
+            <div class="skill-list">
+              <span>AutoCAD</span><span>Visio</span><span>Multisim</span><span>Solid Edge</span><span>Loop Diagrams</span><span>Instrument Datasheets</span><span>Test Reports</span>
             </div>
           </div>
         </div>
@@ -231,14 +341,18 @@
         </div>
         <div class="education-list reveal">
           <article class="education-card">
-            <h3>Instrumentation and Control Engineering Technology</h3>
-            <p class="company">Red River College Polytechnic · Fall 2024 – Present</p>
-            <p>Coursework includes process measurement, control systems, PLCs, power distribution, industrial instrumentation, schematic design, troubleshooting, control loop tuning, and HMI integration.</p>
+            <h3>Instrumentation &amp; Control Engineering Technology (Diploma)</h3>
+            <p class="company">Red River College Polytechnic · Sep 2024 – Dec 2026</p>
+            <p>Process measurement, control systems, PLC programming, industrial instrumentation, power
+               distribution, schematic design, and process control loops. Extensive lab work with 4–20 mA
+               signal loops, sensor calibration, PID/PIDE tuning, Allen-Bradley CompactLogix, FactoryTalk
+               View SE HMI integration, and ISA-18.2 alarm implementation.</p>
           </article>
           <article class="education-card">
-            <h3>Bachelor of Computer Science Coursework</h3>
-            <p class="company">University of Manitoba · Fall 2022 – Spring 2024</p>
-            <p>Completed two years of coursework in software development, algorithms, data structures, and problem solving using C++, Python, and Java.</p>
+            <h3>Bachelor of Computer Science (Coursework Completed)</h3>
+            <p class="company">University of Manitoba · Sep 2022 – Apr 2024</p>
+            <p>Two years of coursework in software development, algorithms, data structures, and applied
+               mathematics. Strong problem-solving and data analysis foundations in C++, Python, and Java.</p>
           </article>
         </div>
       </div>
@@ -247,12 +361,14 @@
     <section id="contact" class="section-pad contact-section">
       <div class="container contact-card reveal">
         <p class="eyebrow">Contact</p>
-        <h2>Let’s connect.</h2>
+        <h2>Let’s talk controls.</h2>
         <p>
-          I am open to conversations about controls, automation, BAS, instrumentation, co-op opportunities, and technical projects.
+          I’m open to full-time instrumentation and process automation roles starting January 2027, as well as
+          conversations about controls, BAS, and technical projects. I typically respond within a day.
         </p>
         <div class="contact-actions">
           <a class="btn primary" href="mailto:piyushshah.icet@gmail.com">Email Me</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/piyush-shah-703963224" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
           <a class="btn secondary" href="resume/Piyush_Shah_Resume.pdf" download>Download Resume</a>
         </div>
       </div>
@@ -261,8 +377,8 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>© <span id="year"></span> Piyush Shah. All rights reserved.</p>
-      <a href="#top">Back to top</a>
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="#top">Back to top ↑</a>
     </div>
   </footer>
 

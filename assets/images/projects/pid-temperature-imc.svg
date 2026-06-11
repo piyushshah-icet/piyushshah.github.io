@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1424"/>
+      <stop offset="1" stop-color="#10203a"/>
+    </linearGradient>
+    <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#60a5fa"/>
+    </marker>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg5)"/>
+  <g stroke="#1d3354" stroke-width="1" opacity="0.5">
+    <path d="M0 90 H800 M0 180 H800 M0 270 H800 M0 360 H800"/>
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450"/>
+  </g>
+
+  <!-- Block diagram -->
+  <g font-size="12" text-anchor="middle">
+    <!-- SP sum junction -->
+    <circle cx="100" cy="140" r="18" fill="#0e1b30" stroke="#60a5fa" stroke-width="2"/>
+    <text x="100" y="145" fill="#60a5fa" font-weight="700">Σ</text>
+    <text x="52" y="132" fill="#8fa6c6" font-size="11">SP</text>
+    <path d="M40 140 H82" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr5)"/>
+
+    <!-- PID -->
+    <rect x="160" y="108" width="120" height="64" rx="10" fill="#10243f" stroke="#2dd4bf" stroke-width="2.5"/>
+    <text x="220" y="135" fill="#e8eefb" font-size="15" font-weight="700">PID</text>
+    <text x="220" y="156" fill="#8fa6c6" font-size="11">IMC-TUNED</text>
+    <path d="M118 140 H160" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr5)"/>
+
+    <!-- PWM/MOSFET -->
+    <rect x="330" y="108" width="130" height="64" rx="10" fill="#10243f" stroke="#60a5fa" stroke-width="2"/>
+    <text x="395" y="135" fill="#e8eefb" font-size="14" font-weight="700">PWM → MOSFET</text>
+    <text x="395" y="156" fill="#8fa6c6" font-size="11">POWER DRIVER</text>
+    <path d="M280 140 H330" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr5)"/>
+
+    <!-- Heater -->
+    <rect x="510" y="108" width="110" height="64" rx="10" fill="#0e1b30" stroke="#fb923c" stroke-width="2"/>
+    <text x="565" y="135" fill="#fb923c" font-size="14" font-weight="700">HEATER</text>
+    <text x="565" y="156" fill="#8fa6c6" font-size="11">FOPDT PROCESS</text>
+    <path d="M460 140 H510" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr5)"/>
+
+    <!-- Sensor feedback -->
+    <circle cx="690" cy="140" r="22" fill="#0e1b30" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="690" y="145" fill="#2dd4bf" font-size="12" font-weight="700">TT</text>
+    <path d="M620 140 H668" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr5)"/>
+    <path d="M690 162 V210 H100 V158" stroke="#2dd4bf" stroke-width="2" fill="none" stroke-dasharray="6 4" marker-end="url(#arr5)"/>
+    <text x="395" y="202" fill="#8fa6c6" font-size="11">PV FEEDBACK</text>
+  </g>
+
+  <!-- Step response chart -->
+  <g>
+    <rect x="110" y="248" width="560" height="120" rx="10" fill="#0e1b30" stroke="#3b5d8f" stroke-width="1.5"/>
+    <path d="M130 350 H650" stroke="#3b5d8f" stroke-width="1"/>
+    <path d="M130 350 V262" stroke="#3b5d8f" stroke-width="1"/>
+    <!-- SP step -->
+    <path d="M130 340 H230 V282 H650" stroke="#60a5fa" stroke-width="1.8" stroke-dasharray="6 4"/>
+    <!-- PV response: dead time then first-order rise w/ small overshoot -->
+    <path d="M130 340 H260 C 320 340, 330 290, 380 280 C 410 274, 430 278, 470 282 C 530 286, 590 282, 650 282" stroke="#2dd4bf" stroke-width="2.5" fill="none"/>
+    <text x="238" y="334" fill="#8fa6c6" font-size="10">DEAD TIME θ</text>
+    <text x="540" y="272" fill="#8fa6c6" font-size="10">PV SETTLES ON SP</text>
+    <text x="148" y="276" fill="#60a5fa" font-size="10">SP STEP</text>
+  </g>
+  <text x="390" y="240" fill="#cbd8ee" font-size="12" text-anchor="middle">CLOSED-LOOP STEP RESPONSE — K, τ, θ FROM OPEN-LOOP TEST</text>
+
+  <text x="40" y="412" fill="#e8eefb" font-size="22" font-weight="700">Closed-Loop PID Temperature Control</text>
+  <text x="40" y="434" fill="#2dd4bf" font-size="13" letter-spacing="2">ARDUINO · PWM/MOSFET · IMC TUNING · FOPDT</text>
+</svg>

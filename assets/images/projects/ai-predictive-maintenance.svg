@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1424"/>
+      <stop offset="1" stop-color="#10203a"/>
+    </linearGradient>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#60a5fa"/>
+    </marker>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg2)"/>
+  <g stroke="#1d3354" stroke-width="1" opacity="0.5">
+    <path d="M0 90 H800 M0 180 H800 M0 270 H800 M0 360 H800"/>
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450"/>
+  </g>
+
+  <!-- Motor -->
+  <g>
+    <rect x="60" y="150" width="120" height="90" rx="12" fill="#0e1b30" stroke="#3b5d8f" stroke-width="2.5"/>
+    <circle cx="120" cy="195" r="26" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+    <text x="120" y="201" fill="#60a5fa" font-size="16" text-anchor="middle" font-weight="700">M</text>
+    <rect x="180" y="185" width="26" height="20" fill="#0e1b30" stroke="#3b5d8f" stroke-width="2"/>
+    <text x="120" y="135" fill="#cbd8ee" font-size="14" text-anchor="middle" font-weight="600">INDUCTION MOTOR</text>
+  </g>
+
+  <!-- Sensors -->
+  <g font-size="12" fill="#8fa6c6">
+    <rect x="250" y="92" width="130" height="54" rx="8" fill="#0e1b30" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="315" y="114" fill="#2dd4bf" text-anchor="middle" font-weight="700" font-size="13">ADXL345</text>
+    <text x="315" y="132" text-anchor="middle">VIBRATION</text>
+
+    <rect x="250" y="170" width="130" height="54" rx="8" fill="#0e1b30" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="315" y="192" fill="#2dd4bf" text-anchor="middle" font-weight="700" font-size="13">MLX90614</text>
+    <text x="315" y="210" text-anchor="middle">IR TEMPERATURE</text>
+
+    <rect x="250" y="248" width="130" height="54" rx="8" fill="#0e1b30" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="315" y="270" fill="#2dd4bf" text-anchor="middle" font-weight="700" font-size="13">ACS712</text>
+    <text x="315" y="288" text-anchor="middle">CURRENT</text>
+  </g>
+  <path d="M183 168 L250 119" stroke="#2dd4bf" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <path d="M183 195 L250 197" stroke="#2dd4bf" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <path d="M183 222 L250 275" stroke="#2dd4bf" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+  <!-- Arduino DAQ -->
+  <rect x="430" y="160" width="120" height="74" rx="10" fill="#10243f" stroke="#60a5fa" stroke-width="2"/>
+  <text x="490" y="192" fill="#e8eefb" font-size="15" text-anchor="middle" font-weight="700">ARDUINO</text>
+  <text x="490" y="212" fill="#8fa6c6" font-size="11" text-anchor="middle">REAL-TIME DAQ</text>
+  <path d="M380 119 L430 172" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr2)"/>
+  <path d="M380 197 H430" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr2)"/>
+  <path d="M380 275 L430 222" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <!-- ML block -->
+  <rect x="600" y="120" width="150" height="84" rx="10" fill="#10243f" stroke="#2dd4bf" stroke-width="2"/>
+  <text x="675" y="150" fill="#e8eefb" font-size="14" text-anchor="middle" font-weight="700">RANDOM FOREST</text>
+  <text x="675" y="170" fill="#8fa6c6" font-size="11" text-anchor="middle">FFT + FEATURE EXTRACTION</text>
+  <text x="675" y="188" fill="#8fa6c6" font-size="11" text-anchor="middle">HEALTHY / DEGRADED</text>
+  <path d="M550 180 L600 166" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <!-- Alarm tiers -->
+  <g font-size="11" font-weight="700">
+    <rect x="600" y="234" width="150" height="92" rx="10" fill="#0e1b30" stroke="#3b5d8f" stroke-width="2"/>
+    <text x="675" y="226" fill="#cbd8ee" font-size="12" text-anchor="middle" font-weight="600">ISA-18.2 ALARM TIERS</text>
+    <rect x="614" y="246" width="56" height="16" rx="4" fill="#2dd4bf" opacity="0.85"/><text x="680" y="259" fill="#9fb2cc" font-weight="400">ADVISORY</text>
+    <rect x="614" y="268" width="56" height="16" rx="4" fill="#facc15" opacity="0.85"/><text x="680" y="281" fill="#9fb2cc" font-weight="400">WARNING</text>
+    <rect x="614" y="290" width="56" height="16" rx="4" fill="#fb923c" opacity="0.9"/><text x="680" y="303" fill="#9fb2cc" font-weight="400">CRITICAL</text>
+    <rect x="614" y="312" width="56" height="8" rx="4" fill="#ef4444"/><text x="680" y="321" fill="#9fb2cc" font-weight="400">SHUTDOWN</text>
+    <path d="M675 204 V234" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr2)"/>
+  </g>
+
+  <!-- Vibration waveform -->
+  <path d="M60 320 q10 -28 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" stroke="#2dd4bf" stroke-width="2" fill="none" opacity="0.8"/>
+  <text x="60" y="350" fill="#8fa6c6" font-size="11">VIBRATION SIGNAL → FFT</text>
+
+  <text x="40" y="412" fill="#e8eefb" font-size="22" font-weight="700">AI-Assisted Predictive Maintenance</text>
+  <text x="40" y="434" fill="#2dd4bf" font-size="13" letter-spacing="2">PYTHON · SCIKIT-LEARN · ARDUINO · DASH SCADA</text>
+</svg>

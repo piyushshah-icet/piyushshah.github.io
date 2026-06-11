@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case study: RTD temperature transmitter producing a calibrated 4–20 mA current loop output from a custom analog signal-conditioning chain — by Piyush Shah." />
+  <title>RTD Temperature Transmitter | Piyush Shah</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar">
+      <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html#projects">All Projects</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
+        <p class="eyebrow">Project Case Study · Oct – Nov 2025</p>
+        <h1>RTD Temperature Transmitter — 4–20 mA Signal Conditioning Circuit</h1>
+        <p class="lede">
+          A ground-up analog transmitter that converts the small resistance change of an RTD into the
+          industry-standard 4–20 mA current loop signal — designed, built, and verified with multi-point
+          calibration across the full temperature range.
+        </p>
+        <div class="project-facts">
+          <div><strong>Domain</strong><span>Analog circuit design</span></div>
+          <div><strong>Key Blocks</strong><span>In-amp · V-to-I loop driver</span></div>
+          <div><strong>Output</strong><span>4–20 mA into 250 Ω load</span></div>
+          <div><strong>Timeline</strong><span>Oct – Nov 2025</span></div>
+        </div>
+        <div class="project-figure">
+          <img src="../assets/images/projects/rtd-transmitter.svg" alt="Signal chain diagram: RTD into bridge, instrumentation amplifier, voltage-to-current converter, and 4–20 mA loop with 250-ohm load" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" style="padding-top: 48px;">
+      <div class="container project-content">
+        <h2>Why 4–20 mA still matters</h2>
+        <p>
+          Despite decades of digital fieldbus development, the 4–20 mA current loop remains the backbone of
+          process instrumentation: it is immune to voltage drop over long cable runs, inherently
+          fault-indicating (0 mA means a broken loop, not a zero reading), and universally compatible with
+          PLCs, DCSs, and indicators. Building a transmitter from discrete components — rather than buying
+          one — forces a real understanding of every link in the measurement chain.
+        </p>
+
+        <h2>Signal chain design</h2>
+        <ul>
+          <li><strong>RTD sensing element</strong> — small, nearly linear resistance change with temperature,
+            but a low-level signal that is easily corrupted by noise and lead resistance.</li>
+          <li><strong>Instrumentation amplifier</strong> — chosen for its high input impedance and common-mode
+            rejection, accurately amplifying the low-level differential RTD signal while rejecting noise.</li>
+          <li><strong>Voltage-to-current conversion</strong> — a transistor-based loop driver converts the
+            conditioned voltage into a proportional 4–20 mA loop current.</li>
+          <li><strong>250 Ω load resistor</strong> — the standard receiver termination, converting loop current
+            back to the familiar 1–5 V range for verification.</li>
+        </ul>
+
+        <h2>Calibration &amp; verification</h2>
+        <p>
+          The transmitter was verified the way a real instrument is commissioned: multi-point measurement
+          across the full temperature range, checking loop current at each point against the expected value and
+          confirming linearity, zero (4 mA), and span (20 mA). Circuit behaviour was validated in Multisim
+          simulation before committing to hardware.
+        </p>
+
+        <div class="skill-callout">
+          <h3>What this demonstrates</h3>
+          <p>
+            Instrumentation fundamentals at the component level — signal conditioning, loop physics, and
+            calibration discipline. When a transmitter misbehaves in the field, this is the understanding that
+            makes troubleshooting systematic instead of guesswork.
+          </p>
+        </div>
+
+        <nav class="project-pager" aria-label="Project navigation">
+          <a href="ai-predictive-maintenance.html">
+            <span class="pager-label">← Previous project</span>
+            <span class="pager-title">AI-Assisted Predictive Maintenance System</span>
+          </a>
+          <a class="next" href="sfc-gate-control.html">
+            <span class="pager-label">Next project →</span>
+            <span class="pager-title">SFC — Automated Gate Control System</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="../index.html#projects">All projects</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

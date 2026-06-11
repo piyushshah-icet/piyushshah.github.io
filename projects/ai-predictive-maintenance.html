@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case study: AI-assisted predictive maintenance system — multi-sensor motor monitoring with a Random Forest fault classifier and ISA-18.2 alarm logic — by Piyush Shah." />
+  <title>AI-Assisted Predictive Maintenance | Piyush Shah</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar">
+      <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html#projects">All Projects</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
+        <p class="eyebrow">Project Case Study · Dec 2025 – Feb 2026</p>
+        <h1>AI-Assisted Predictive Maintenance System</h1>
+        <p class="lede">
+          A motor health monitoring system that fuses vibration, temperature, and current measurements,
+          classifies motor condition with machine learning, and annunciates faults through tiered
+          ISA-18.2-style alarms on a live SCADA-style dashboard.
+        </p>
+        <div class="project-facts">
+          <div><strong>Stack</strong><span>Python · scikit-learn · Arduino</span></div>
+          <div><strong>Sensors</strong><span>ADXL345 · MLX90614 · ACS712</span></div>
+          <div><strong>ML Model</strong><span>Random Forest classifier</span></div>
+          <div><strong>Timeline</strong><span>Dec 2025 – Feb 2026</span></div>
+        </div>
+        <div class="project-figure">
+          <img src="../assets/images/projects/ai-predictive-maintenance.svg" alt="System diagram: motor instrumented with vibration, infrared temperature, and current sensors feeding an Arduino DAQ, a Random Forest classifier, and tiered alarm logic" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" style="padding-top: 48px;">
+      <div class="container project-content">
+        <h2>The problem</h2>
+        <p>
+          Unplanned motor failure is one of the most expensive events on a plant floor, and most failures
+          announce themselves early — as rising vibration, heat, or current draw — long before the motor stops.
+          The industry answer is condition-based monitoring. This project builds a complete, working version of
+          that pipeline at bench scale: sense, acquire, extract features, classify, and alarm.
+        </p>
+
+        <h2>Multi-sensor data acquisition</h2>
+        <ul>
+          <li><strong>ADXL345 accelerometer</strong> for three-axis vibration measurement mounted on the motor
+            frame.</li>
+          <li><strong>MLX90614 infrared sensor</strong> for non-contact surface temperature measurement.</li>
+          <li><strong>ACS712 Hall-effect sensor</strong> for motor current draw.</li>
+          <li>An <strong>Arduino</strong> performs real-time, multi-parameter acquisition and streams
+            synchronized readings to a Python host application.</li>
+        </ul>
+
+        <h2>Feature extraction &amp; machine learning</h2>
+        <p>
+          Raw signals were processed into <strong>time-domain features</strong> (RMS, peak, statistical
+          measures) and <strong>frequency-domain features</strong> via FFT of the vibration and current
+          signals — the same feature families used in commercial vibration analysis. A
+          <strong>Random Forest classifier</strong> (scikit-learn) was trained on labelled healthy and degraded
+          motor states, achieving measurable separation between fault classes. Random Forest was chosen for its
+          robustness on modest datasets and its interpretable feature-importance output, which links
+          predictions back to physical symptoms.
+        </p>
+
+        <h2>Alarm management — ISA-18.2 principles</h2>
+        <p>
+          Rather than a single "fault" light, the system implements four alarm tiers consistent with
+          ISA-18.2 alarm-management practice: <strong>advisory → warning → critical → emergency
+          shutdown</strong>. Each tier has distinct thresholds and operator actions, mirroring how alarms are
+          rationalized in real facilities so operators are guided, not flooded.
+        </p>
+
+        <h2>SCADA-style visualization</h2>
+        <p>
+          A <strong>Python Dash dashboard</strong> displays live sensor trends, current classifier state, and
+          fault indicators in a layout modelled on industrial SCADA displays — live values, trend history, and
+          alarm status visible at a glance.
+        </p>
+
+        <div class="skill-callout">
+          <h3>What this demonstrates</h3>
+          <p>
+            The combination most instrumentation candidates don't have: classical sensing and alarm engineering
+            integrated with practical machine learning and modern data tooling — the exact skill set predictive
+            maintenance and Industry 4.0 initiatives are hiring for.
+          </p>
+        </div>
+
+        <nav class="project-pager" aria-label="Project navigation">
+          <a href="cascaded-pide-level-control.html">
+            <span class="pager-label">← Previous project</span>
+            <span class="pager-title">Cascaded PIDE Level Control with FactoryTalk HMI</span>
+          </a>
+          <a class="next" href="rtd-temperature-transmitter.html">
+            <span class="pager-label">Next project →</span>
+            <span class="pager-title">RTD Temperature Transmitter — 4–20 mA</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="../index.html#projects">All projects</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
