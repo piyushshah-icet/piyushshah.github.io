@@ -38,13 +38,13 @@
 
   <!-- Outer loop PIDE -->
   <rect x="390" y="120" width="150" height="86" rx="10" fill="#10243f" stroke="#60a5fa" stroke-width="2"/>
-  <text x="465" y="152" fill="#e8eefb" font-size="16" text-anchor="middle" font-weight="700">PIDE — LEVEL</text>
+  <text x="465" y="152" fill="#e8eefb" font-size="16" text-anchor="middle" font-weight="700">PIDE: LEVEL</text>
   <text x="465" y="176" fill="#8fa6c6" font-size="12" text-anchor="middle">OUTER LOOP (PRIMARY)</text>
   <path d="M329 170 L390 163" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
 
   <!-- Inner loop PIDE -->
   <rect x="390" y="260" width="150" height="86" rx="10" fill="#10243f" stroke="#60a5fa" stroke-width="2"/>
-  <text x="465" y="292" fill="#e8eefb" font-size="16" text-anchor="middle" font-weight="700">PIDE — FLOW</text>
+  <text x="465" y="292" fill="#e8eefb" font-size="16" text-anchor="middle" font-weight="700">PIDE: FLOW</text>
   <text x="465" y="316" fill="#8fa6c6" font-size="12" text-anchor="middle">INNER LOOP (SECONDARY)</text>
   <path d="M465 206 V260" stroke="#60a5fa" stroke-width="2" marker-end="url(#arr)"/>
   <text x="475" y="238" fill="#8fa6c6" font-size="11">CASCADE SP</text>

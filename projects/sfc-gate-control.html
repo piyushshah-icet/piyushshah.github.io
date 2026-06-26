@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study: IEC 61131-3 Sequential Function Chart gate control on Allen-Bradley CompactLogix with deterministic fault handling and maintenance mode — by Piyush Shah." />
+  <meta name="description" content="Case study: IEC 61131-3 Sequential Function Chart gate control on Allen-Bradley CompactLogix with deterministic fault handling and maintenance mode, by Piyush Shah." />
   <title>SFC Automated Gate Control | Piyush Shah</title>
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
   <link rel="canonical" href="https://piyushshah.ca/projects/sfc-gate-control.html" />
   <script>
     (function () {
       try {
-        if (localStorage.getItem('theme') === 'light') {
+        if (localStorage.getItem('theme') !== 'dark') {
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (e) {}
@@ -26,7 +26,7 @@
     <nav class="navbar">
       <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
       <div class="nav-right">
-        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="true">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         </button>
@@ -48,10 +48,10 @@
       <div class="container">
         <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
         <p class="eyebrow">Project Case Study · Winter 2026</p>
-        <h1>Sequential Function Chart — Automated Gate Control System</h1>
+        <h1>Sequential Function Chart: Automated Gate Control System</h1>
         <p class="lede">
           A multi-state gate control sequence programmed as an IEC 61131-3 Sequential Function Chart on
-          Allen-Bradley CompactLogix — with deterministic fault handling, safe-state transitions, and a
+          Allen-Bradley CompactLogix, with deterministic fault handling, safe-state transitions, and a
           dedicated maintenance mode.
         </p>
         <div class="project-facts">
@@ -70,7 +70,7 @@
       <div class="container project-content">
         <h2>Why SFC?</h2>
         <p>
-          Sequential processes — batching, machine cycles, material handling, gate and door systems — are
+          Sequential processes (batching, machine cycles, material handling, gate and door systems) are
           awkward to express in pure ladder logic, where state is scattered across latches and interlock rungs.
           IEC 61131-3 Sequential Function Charts make the state machine explicit: steps, transitions, and
           actions are visible on one chart, which makes the program easier to commission, troubleshoot, and
@@ -79,13 +79,13 @@
 
         <h2>The control sequence</h2>
         <ul>
-          <li><strong>Idle</strong> — system armed, awaiting vehicle detection.</li>
-          <li><strong>Ticket issuance</strong> — vehicle present triggers ticket dispensing; sequence holds
+          <li><strong>Idle</strong>: system armed, awaiting vehicle detection.</li>
+          <li><strong>Ticket issuance</strong>: vehicle present triggers ticket dispensing; sequence holds
             until the ticket is taken.</li>
-          <li><strong>Barrier actuation</strong> — gate raises, vehicle passage is confirmed by sensor, gate
+          <li><strong>Barrier actuation</strong>: gate raises, vehicle passage is confirmed by sensor, gate
             lowers safely.</li>
-          <li><strong>Alarm activation</strong> — abnormal conditions annunciated to the operator.</li>
-          <li><strong>Maintenance / fault mode</strong> — a distinct mode with system status indication for
+          <li><strong>Alarm activation</strong>: abnormal conditions annunciated to the operator.</li>
+          <li><strong>Maintenance / fault mode</strong>: a distinct mode with system status indication for
             servicing the gate safely.</li>
         </ul>
 
@@ -93,14 +93,14 @@
         <p>
           The interesting engineering is in the abnormal paths. The sequence was designed so that a
           <strong>sensor fault or transition timeout</strong> always drives the system to a defined safe
-          state — never an ambiguous one. Fault transitions branch out of normal operation into an alarm and
+          state, never an ambiguous one. Fault transitions branch out of normal operation into an alarm and
           safe-state step, and the system requires deliberate operator action to return to service. Timeouts on
           each step ensure the sequence can never hang silently waiting on a failed sensor.
         </p>
 
         <h2>Design decisions</h2>
         <ul>
-          <li>Every step has an explicit exit path — either a normal transition or a supervised timeout.</li>
+          <li>Every step has an explicit exit path: either a normal transition or a supervised timeout.</li>
           <li>Safe-state logic de-energizes the barrier drive on any fault, following fail-safe convention.</li>
           <li>Maintenance mode is mutually exclusive with automatic operation, with clear status indication so
             the system state is never ambiguous to an operator or technician.</li>
@@ -109,7 +109,7 @@
         <div class="skill-callout">
           <h3>What this demonstrates</h3>
           <p>
-            State-machine thinking and safety-conscious sequence design on real PLC hardware — the discipline
+            State-machine thinking and safety-conscious sequence design on real PLC hardware, the discipline
             of asking "what happens when the sensor fails?" at every step, which is exactly what separates
             production-ready logic from classroom logic.
           </p>
@@ -118,11 +118,11 @@
         <nav class="project-pager" aria-label="Project navigation">
           <a href="rtd-temperature-transmitter.html">
             <span class="pager-label">← Previous project</span>
-            <span class="pager-title">RTD Temperature Transmitter — 4–20 mA</span>
+            <span class="pager-title">RTD Temperature Transmitter: 4–20 mA</span>
           </a>
           <a class="next" href="pid-temperature-imc.html">
             <span class="pager-label">Next project →</span>
-            <span class="pager-title">Closed-Loop PID Temperature Control — IMC Tuning</span>
+            <span class="pager-title">Closed-Loop PID Temperature Control: IMC Tuning</span>
           </a>
         </nav>
       </div>

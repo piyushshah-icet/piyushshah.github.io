@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study: closed-loop PID temperature control with FOPDT model identification and IMC tuning methodology — by Piyush Shah." />
+  <meta name="description" content="Case study: closed-loop PID temperature control with FOPDT model identification and IMC tuning methodology, by Piyush Shah." />
   <title>Closed-Loop PID Temperature Control | Piyush Shah</title>
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
   <link rel="canonical" href="https://piyushshah.ca/projects/pid-temperature-imc.html" />
   <script>
     (function () {
       try {
-        if (localStorage.getItem('theme') === 'light') {
+        if (localStorage.getItem('theme') !== 'dark') {
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (e) {}
@@ -26,7 +26,7 @@
     <nav class="navbar">
       <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
       <div class="nav-right">
-        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="true">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         </button>
@@ -48,7 +48,7 @@
       <div class="container">
         <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
         <p class="eyebrow">Project Case Study · Jan 2026</p>
-        <h1>Closed-Loop PID Temperature Control — IMC Tuning</h1>
+        <h1>Closed-Loop PID Temperature Control: IMC Tuning</h1>
         <p class="lede">
           A closed-loop temperature controller built from first principles: PWM power delivery through a
           MOSFET, open-loop step testing to identify the process model, and Internal Model Control tuning to
@@ -72,7 +72,7 @@
         <p>
           Most beginner PID projects tune by guessing. This one follows the methodology used in industry:
           identify the process first, then compute the tuning. An <strong>open-loop step test</strong> was
-          performed on the heater — step the output, record the temperature response — and the data was fitted
+          performed on the heater (step the output, record the temperature response), and the data was fitted
           to a <strong>first-order-plus-dead-time (FOPDT)</strong> model, extracting process gain (K), time
           constant (τ), and dead time (θ).
         </p>
@@ -80,7 +80,7 @@
         <h2>Power delivery</h2>
         <ul>
           <li><strong>PWM-driven MOSFET</strong> varies average power to the resistive heater linearly with
-            controller output — effectively a solid-state final control element.</li>
+            controller output, effectively a solid-state final control element.</li>
           <li>Temperature feedback closes the loop on the Arduino, which executes the PID algorithm in real
             time.</li>
         </ul>
@@ -97,8 +97,8 @@
         <h2>Validation &amp; documentation</h2>
         <p>
           The tuned loop was validated with closed-loop setpoint steps, confirming the response matched the
-          design intent — controlled rise with minimal overshoot and clean settling. The full tuning exercise
-          — step-test data, model fit, derived parameters, and closed-loop trends — was documented in Excel
+          design intent: controlled rise with minimal overshoot and clean settling. The full tuning exercise
+          (step-test data, model fit, derived parameters, and closed-loop trends) was documented in Excel
           trend charts, the way loop tuning is recorded and handed over in a real plant.
         </p>
 
@@ -106,7 +106,7 @@
           <h3>What this demonstrates</h3>
           <p>
             Genuine control theory applied to physical hardware: process identification, analytical tuning, and
-            disciplined documentation. This is the same workflow used to tune loops on real processes — just at
+            disciplined documentation. This is the same workflow used to tune loops on real processes, just at
             bench scale.
           </p>
         </div>
@@ -114,7 +114,7 @@
         <nav class="project-pager" aria-label="Project navigation">
           <a href="sfc-gate-control.html">
             <span class="pager-label">← Previous project</span>
-            <span class="pager-title">SFC — Automated Gate Control System</span>
+            <span class="pager-title">SFC: Automated Gate Control System</span>
           </a>
           <a class="next" href="../index.html#projects">
             <span class="pager-label">Finished reading →</span>

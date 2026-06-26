@@ -61,7 +61,7 @@
     <text x="540" y="272" fill="#8fa6c6" font-size="10">PV SETTLES ON SP</text>
     <text x="148" y="276" fill="#60a5fa" font-size="10">SP STEP</text>
   </g>
-  <text x="390" y="240" fill="#cbd8ee" font-size="12" text-anchor="middle">CLOSED-LOOP STEP RESPONSE — K, τ, θ FROM OPEN-LOOP TEST</text>
+  <text x="390" y="240" fill="#cbd8ee" font-size="12" text-anchor="middle">CLOSED-LOOP STEP RESPONSE: K, τ, θ FROM OPEN-LOOP TEST</text>
 
   <text x="40" y="412" fill="#e8eefb" font-size="22" font-weight="700">Closed-Loop PID Temperature Control</text>
   <text x="40" y="434" fill="#2dd4bf" font-size="13" letter-spacing="2">ARDUINO · PWM/MOSFET · IMC TUNING · FOPDT</text>

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study: RTD temperature transmitter producing a calibrated 4–20 mA current loop output from a custom analog signal-conditioning chain — by Piyush Shah." />
+  <meta name="description" content="Case study: RTD temperature transmitter producing a calibrated 4–20 mA current loop output from a custom analog signal-conditioning chain, by Piyush Shah." />
   <title>RTD Temperature Transmitter | Piyush Shah</title>
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
   <link rel="canonical" href="https://piyushshah.ca/projects/rtd-temperature-transmitter.html" />
   <script>
     (function () {
       try {
-        if (localStorage.getItem('theme') === 'light') {
+        if (localStorage.getItem('theme') !== 'dark') {
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (e) {}
@@ -26,7 +26,7 @@
     <nav class="navbar">
       <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
       <div class="nav-right">
-        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="false">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="true">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         </button>
@@ -48,10 +48,10 @@
       <div class="container">
         <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
         <p class="eyebrow">Project Case Study · Oct – Nov 2025</p>
-        <h1>RTD Temperature Transmitter — 4–20 mA Signal Conditioning Circuit</h1>
+        <h1>RTD Temperature Transmitter: 4–20 mA Signal Conditioning Circuit</h1>
         <p class="lede">
           A ground-up analog transmitter that converts the small resistance change of an RTD into the
-          industry-standard 4–20 mA current loop signal — designed, built, and verified with multi-point
+          industry-standard 4–20 mA current loop signal: designed, built, and verified with multi-point
           calibration across the full temperature range.
         </p>
         <div class="project-facts">
@@ -73,19 +73,18 @@
           Despite decades of digital fieldbus development, the 4–20 mA current loop remains the backbone of
           process instrumentation: it is immune to voltage drop over long cable runs, inherently
           fault-indicating (0 mA means a broken loop, not a zero reading), and universally compatible with
-          PLCs, DCSs, and indicators. Building a transmitter from discrete components — rather than buying
-          one — forces a real understanding of every link in the measurement chain.
+          PLCs, DCSs, and indicators. Building a transmitter from discrete components (rather than buying one) forces a real understanding of every link in the measurement chain.
         </p>
 
         <h2>Signal chain design</h2>
         <ul>
-          <li><strong>RTD sensing element</strong> — small, nearly linear resistance change with temperature,
+          <li><strong>RTD sensing element</strong>: small, nearly linear resistance change with temperature,
             but a low-level signal that is easily corrupted by noise and lead resistance.</li>
-          <li><strong>Instrumentation amplifier</strong> — chosen for its high input impedance and common-mode
+          <li><strong>Instrumentation amplifier</strong>: chosen for its high input impedance and common-mode
             rejection, accurately amplifying the low-level differential RTD signal while rejecting noise.</li>
-          <li><strong>Voltage-to-current conversion</strong> — a transistor-based loop driver converts the
+          <li><strong>Voltage-to-current conversion</strong>: a transistor-based loop driver converts the
             conditioned voltage into a proportional 4–20 mA loop current.</li>
-          <li><strong>250 Ω load resistor</strong> — the standard receiver termination, converting loop current
+          <li><strong>250 Ω load resistor</strong>: the standard receiver termination, converting loop current
             back to the familiar 1–5 V range for verification.</li>
         </ul>
 
@@ -100,7 +99,7 @@
         <div class="skill-callout">
           <h3>What this demonstrates</h3>
           <p>
-            Instrumentation fundamentals at the component level — signal conditioning, loop physics, and
+            Instrumentation fundamentals at the component level: signal conditioning, loop physics, and
             calibration discipline. When a transmitter misbehaves in the field, this is the understanding that
             makes troubleshooting systematic instead of guesswork.
           </p>
@@ -113,7 +112,7 @@
           </a>
           <a class="next" href="sfc-gate-control.html">
             <span class="pager-label">Next project →</span>
-            <span class="pager-title">SFC — Automated Gate Control System</span>
+            <span class="pager-title">SFC: Automated Gate Control System</span>
           </a>
         </nav>
       </div>
