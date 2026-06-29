@@ -34,7 +34,18 @@
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="navLinks">
-          <li><a href="../index.html#projects">All Projects</a></li>
+          <li class="nav-dropdown">
+            <button class="nav-dropbtn" aria-haspopup="true" aria-expanded="false">Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="cascaded-pide-level-control.html">Cascaded PIDE Level Control</a></li>
+              <li><a href="ai-predictive-maintenance.html">AI-Assisted Predictive Maintenance</a></li>
+              <li><a href="rtd-temperature-transmitter.html">RTD Temperature Transmitter</a></li>
+              <li><a href="sfc-gate-control.html">Sequential Function Chart Gate Control</a></li>
+              <li><a href="pid-temperature-imc.html">Closed-Loop PID Temperature Control</a></li>
+              <li class="dropdown-divider" aria-hidden="true"></li>
+              <li><a class="dd-all" href="../index.html#projects">All projects</a></li>
+            </ul>
+          </li>
           <li><a href="../index.html#skills">Skills</a></li>
           <li><a href="../index.html#contact">Contact</a></li>
           <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
@@ -47,67 +58,79 @@
     <section class="project-hero">
       <div class="container">
         <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
-        <p class="eyebrow">Project Case Study · Jan 2026</p>
+        <p class="eyebrow">Project Case Study · Apr 2026</p>
         <h1>Closed-Loop PID Temperature Control: IMC Tuning</h1>
         <p class="lede">
-          A closed-loop temperature controller built from first principles: PWM power delivery through a
-          MOSFET, open-loop step testing to identify the process model, and Internal Model Control tuning to
-          derive PID parameters analytically rather than by trial and error.
+          A small heater that holds whatever temperature you dial in. I built the circuit, measured how the
+          heater actually behaves, then tuned a controller to bring it to a target quickly and hold it there
+          without much fuss. An Arduino does the thinking, reading a thermistor and adjusting heater power
+          many times a second.
         </p>
         <div class="project-facts">
-          <div><strong>Hardware</strong><span>Arduino · MOSFET · resistive heater</span></div>
-          <div><strong>Method</strong><span>FOPDT identification → IMC tuning</span></div>
-          <div><strong>Validation</strong><span>Step response + Excel trending</span></div>
-          <div><strong>Timeline</strong><span>Jan 2026</span></div>
+          <div><strong>Hardware</strong><span>Arduino, MOSFET driver, heater + thermistor</span></div>
+          <div><strong>Method</strong><span>Reaction curve, then IMC tuning</span></div>
+          <div><strong>Result</strong><span>Clean rise, about 2% overshoot</span></div>
+          <div><strong>Timeline</strong><span>Apr 2026</span></div>
         </div>
-        <div class="project-figure">
-          <img src="../assets/images/projects/pid-temperature-imc.svg" alt="Block diagram of a PID loop driving a PWM MOSFET heater with temperature feedback, above a closed-loop step response chart" />
-        </div>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/pid-hardware.jpg" alt="The heat block: a power resistor acting as the heater with a thermistor mounted next to it on an aluminum rail" />
+          <figcaption>The heat block. A 16 ohm power resistor does the heating, with a thermistor reading its temperature right next to it.</figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="section-pad" style="padding-top: 48px;">
       <div class="container project-content">
-        <h2>The approach: model first, tune second</h2>
+        <h2>The idea</h2>
         <p>
-          Most beginner PID projects tune by guessing. This one follows the methodology used in industry:
-          identify the process first, then compute the tuning. An <strong>open-loop step test</strong> was
-          performed on the heater (step the output, record the temperature response), and the data was fitted
-          to a <strong>first-order-plus-dead-time (FOPDT)</strong> model, extracting process gain (K), time
-          constant (τ), and dead time (θ).
+          The goal is easy to say and surprisingly fiddly to get right: keep a heater at a set temperature.
+          You pick a target with a knob, and the controller decides how hard to drive the heater so the
+          measured temperature lands on that target and stays there. The Arduino reads the temperature from a
+          thermistor, compares it to your target, and sets heater power through a small MOSFET driver board
+          that switches the supply on and off quickly to control the average power.
         </p>
 
-        <h2>Power delivery</h2>
-        <ul>
-          <li><strong>PWM-driven MOSFET</strong> varies average power to the resistive heater linearly with
-            controller output, effectively a solid-state final control element.</li>
-          <li>Temperature feedback closes the loop on the Arduino, which executes the PID algorithm in real
-            time.</li>
-        </ul>
-
-        <h2>IMC tuning methodology</h2>
+        <h2>Getting to know the heater</h2>
         <p>
-          <strong>Internal Model Control (IMC)</strong> tuning rules convert the measured K, τ, and θ directly
-          into P, I, and D parameters, with a single tuning knob (the closed-loop time constant) that trades
-          off speed against robustness. Compared to Ziegler-Nichols, IMC gives smoother, less oscillatory
-          response and is the method most often recommended for temperature loops, where overshoot is costly
-          and dead time is significant.
+          Before tuning anything, I needed to see how the heater actually responds. With the block sitting
+          under a plastic bin to keep drafts off the sensor, I bumped the power up by about 20% and recorded
+          the temperature climbing until it leveled off. That gives the S-shaped curve below. Reading it tells
+          me three useful things: how much the temperature moves for a given amount of power, how long it
+          waits before reacting, and how slow it is overall.
+        </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/pid-reaction-curve.png" alt="Reaction curve showing temperature rising in an S-shape after a step in heater power, annotated with dead time, time constant, and total change measurements" />
+          <figcaption>The reaction curve. A step in heater power gives an S-shaped rise, and the marked-up lines pull out the delay, the speed, and the total change.</figcaption>
+        </figure>
+
+        <h2>Why a method beats guessing</h2>
+        <p>
+          To show why the measuring matters, I first tried plain proportional control. With a gentle setting
+          the temperature got close but always parked a few percent short of the target. With an aggressive
+          setting it shot past and oscillated for a long time before settling. Neither is good, and that is
+          exactly the gap a proper tuning method fills.
         </p>
 
-        <h2>Validation &amp; documentation</h2>
+        <h2>Tuning it properly</h2>
         <p>
-          The tuned loop was validated with closed-loop setpoint steps, confirming the response matched the
-          design intent: controlled rise with minimal overshoot and clean settling. The full tuning exercise
-          (step-test data, model fit, derived parameters, and closed-loop trends) was documented in Excel
-          trend charts, the way loop tuning is recorded and handed over in a real plant.
+          Using the numbers from the reaction curve, I calculated a starting point with the IMC method, which
+          is basically a recipe that turns those measurements straight into controller settings. Then I tested
+          and adjusted one value at a time. The first attempt sagged on the way up, the next overshot, and
+          splitting the difference landed it. The final response rises cleanly to the target with only about a
+          2% overshoot, then holds steady, with the heater easing back to just enough power to keep the
+          temperature there.
         </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/pid-final-response.png" alt="Final tuned response chart showing the measured temperature stepping up to the setpoint with a small overshoot and settling, while the control output eases back to a steady value" />
+          <figcaption>The final tuned response. Temperature (orange) steps up to the target (blue) with a small overshoot and settles; heater power (grey) eases back to a steady hold.</figcaption>
+        </figure>
 
         <div class="skill-callout">
-          <h3>What this demonstrates</h3>
+          <h3>What this shows</h3>
           <p>
-            Genuine control theory applied to physical hardware: process identification, analytical tuning, and
-            disciplined documentation. This is the same workflow used to tune loops on real processes, just at
-            bench scale.
+            The whole point was to do it the way it is done on real equipment: measure the process first, work
+            out a sensible starting point, then refine by watching how it actually behaves. It is a small
+            heater on a bench, but the workflow is the same one used to tune loops in a plant.
           </p>
         </div>
 

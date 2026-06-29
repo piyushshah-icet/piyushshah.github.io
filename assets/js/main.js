@@ -35,6 +35,27 @@ if (menuToggle && navLinks) {
   });
 }
 
+/* ---------- Nav dropdown (Projects) ---------- */
+const navDropdowns = document.querySelectorAll('.nav-dropdown');
+navDropdowns.forEach((dd) => {
+  const btn = dd.querySelector('.nav-dropbtn');
+  if (!btn) return;
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = dd.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+});
+document.addEventListener('click', (e) => {
+  navDropdowns.forEach((dd) => {
+    if (!dd.contains(e.target)) {
+      dd.classList.remove('open');
+      const btn = dd.querySelector('.nav-dropbtn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
 /* ---------- Footer year ---------- */
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();

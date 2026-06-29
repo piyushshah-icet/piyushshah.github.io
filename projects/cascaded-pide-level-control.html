@@ -34,7 +34,18 @@
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="navLinks">
-          <li><a href="../index.html#projects">All Projects</a></li>
+          <li class="nav-dropdown">
+            <button class="nav-dropbtn" aria-haspopup="true" aria-expanded="false">Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="cascaded-pide-level-control.html">Cascaded PIDE Level Control</a></li>
+              <li><a href="ai-predictive-maintenance.html">AI-Assisted Predictive Maintenance</a></li>
+              <li><a href="rtd-temperature-transmitter.html">RTD Temperature Transmitter</a></li>
+              <li><a href="sfc-gate-control.html">Sequential Function Chart Gate Control</a></li>
+              <li><a href="pid-temperature-imc.html">Closed-Loop PID Temperature Control</a></li>
+              <li class="dropdown-divider" aria-hidden="true"></li>
+              <li><a class="dd-all" href="../index.html#projects">All projects</a></li>
+            </ul>
+          </li>
           <li><a href="../index.html#skills">Skills</a></li>
           <li><a href="../index.html#contact">Contact</a></li>
           <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
@@ -50,9 +61,10 @@
         <p class="eyebrow">Project Case Study · Winter 2026</p>
         <h1>Cascaded PIDE Level Control System with FactoryTalk HMI</h1>
         <p class="lede">
-          A two-loop cascade control system on Allen-Bradley CompactLogix that holds water tank level steady
-          under variable inflow disturbances, paired with a FactoryTalk View SE operator interface built to
-          industrial HMI and alarm-management conventions.
+          A water tank that fills to whatever level you ask for and holds it there, even when the water
+          supply gets unpredictable. I built the control logic on an Allen-Bradley PLC and a matching
+          operator screen in FactoryTalk View, so you can type in a target and watch the system chase it.
+          It started as a course project I worked through with a lab partner.
         </p>
         <div class="project-facts">
           <div><strong>Platform</strong><span>Allen-Bradley CompactLogix</span></div>
@@ -60,61 +72,63 @@
           <div><strong>Control Strategy</strong><span>Cascade PIDE (level → flow)</span></div>
           <div><strong>Timeline</strong><span>Winter 2026</span></div>
         </div>
-        <div class="project-figure">
-          <img src="../assets/images/projects/cascaded-pide-level.svg" alt="System diagram: tank with level transmitter feeding an outer level PIDE loop, cascading a setpoint to an inner flow PIDE loop driving a control valve" />
-        </div>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/cascaded-hmi.png" alt="FactoryTalk operator screen showing start and stop buttons, a setpoint entry box, a tank graphic filled partway, live flow and valve readouts, and two error trend graphs" />
+          <figcaption>The finished operator screen. Set a level, then watch the valve, flow, and tank respond live, with both error trends plotting underneath.</figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="section-pad" style="padding-top: 48px;">
       <div class="container project-content">
-        <h2>Why cascade control?</h2>
+        <h2>The idea</h2>
         <p>
-          A single-loop level controller reacts to inflow disturbances only after they have already changed the
-          tank level, by which point the process is off-setpoint. Cascade control fixes this by splitting the
-          job in two: an outer (primary) loop controls tank level and continuously writes its output as the
-          setpoint of an inner (secondary) loop that controls inlet flow. Because the inner flow loop is much
-          faster than the level dynamics, it rejects flow disturbances before they ever reach the tank. This is
-          the same strategy used on real process equipment: boiler drums, surge tanks, and feedwater systems.
+          Holding a tank at a steady level sounds easy until the water supply pressure changes on you. A
+          basic controller only reacts after the level has already drifted off target. The trick I used here
+          is cascade control, which is really just two controllers working as a team. One keeps an eye on the
+          tank level and decides how much inflow it wants. The other takes that request and works the valve to
+          deliver exactly that flow. Because the valve controller reacts quickly, it catches supply changes
+          before they have a chance to move the tank. It is the same approach you find on real plant equipment
+          like boiler drums and feedwater systems.
         </p>
 
-        <h2>Control design &amp; PLC implementation</h2>
-        <ul>
-          <li><strong>PIDE function blocks</strong> in Studio 5000 for both loops, configured with
-            engineering-unit scaling so operators see level in percent and flow in real units rather than raw
-            counts.</li>
-          <li><strong>Anti-reset windup and output limiting</strong> configured on both loops, so the
-            controller recovers cleanly when the valve saturates instead of overshooting.</li>
-          <li><strong>Bumpless auto/manual transfer</strong>: operators can take the loop to manual and hand
-            it back to auto without bumping the process, exactly as expected in a plant environment.</li>
-          <li><strong>Cascade linking</strong>: the outer level PIDE writes its control variable to the inner
-            flow PIDE setpoint, with correct initialization handling between the two blocks.</li>
-        </ul>
-
-        <h2>Loop tuning &amp; validation</h2>
+        <h2>How it works</h2>
         <p>
-          Both loops were tuned inner-loop-first using the CompactLogix built-in autotuner, then validated
-          against step-response targets: the inner flow loop tuned fast and tight, the outer level loop tuned
-          slower to avoid fighting it. Performance was confirmed by stepping the level setpoint and by
-          introducing inflow disturbances, verifying the cascade rejected disturbances faster and with less
-          deviation than a single-loop configuration.
+          On the PLC, both controllers are built in Studio 5000 using function blocks. The level controller
+          passes its target down to the flow controller, which is the one actually driving the valve.
+          Everything is scaled into real units, so the screen reads level as a percentage and flow as a
+          proper number instead of raw sensor counts.
+        </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/cascaded-fbd.png" alt="Studio 5000 function block diagram showing the level sensor feeding the master controller, which passes a setpoint through a selector to the slave flow controller that drives the valve" />
+          <figcaption>The control logic. The level controller on the left hands a flow target to the flow controller on the right, which drives the valve.</figcaption>
+        </figure>
+
+        <h2>Tuning it</h2>
+        <p>
+          Each controller has to be tuned so it responds well without overreacting. I used the PLC's built-in
+          autotuning, starting with the fast flow loop and then the slower level loop, since the order matters
+          in a cascade. After tuning, I set a target and watched the tank climb, nudge just past the line, and
+          settle. Dialing the level controller back to gentler settings traded a little speed for a smoother
+          ride with almost no overshoot, which is a clear way to see the usual tradeoff between fast and steady.
         </p>
 
-        <h2>FactoryTalk View SE operator interface</h2>
-        <ul>
-          <li>Animated tank graphic with live level indication and valve position.</li>
-          <li>Real-time PV / SP / CV trend displays for both loops, so tuning behaviour is visible at a glance.</li>
-          <li>Operator setpoint entry, start/stop controls, and auto/manual mode selection.</li>
-          <li>An <strong>ISA-18.2-style tiered alarm banner</strong>: alarms prioritized and annunciated by
-            severity rather than a flat alarm list, following alarm-management good practice.</li>
-        </ul>
+        <h2>The operator screen</h2>
+        <p>
+          The FactoryTalk screen is the part someone would actually use day to day. There are start and stop
+          buttons that turn green or red, a box to type in the target level, a tank that fills and drains as
+          you watch, and live readouts for flow, valve opening, and level. Two trend graphs plot the error for
+          each loop, so you can literally watch the controllers settle toward zero. I also worked through
+          backing the project up and restoring it, which is the unglamorous but important side of real plant
+          work.
+        </p>
 
         <div class="skill-callout">
-          <h3>What this demonstrates</h3>
+          <h3>What this shows</h3>
           <p>
-            End-to-end loop ownership on the industry-standard Rockwell platform: control strategy selection,
-            PIDE configuration, tuning methodology, and an operator HMI built to real industrial conventions,
-            not just a lab exercise that lights an indicator.
+            A full trip from an idea to a working station: designing the cascade, programming it on a real
+            Allen-Bradley PLC, tuning it by feel and by the numbers, and wrapping it in a screen someone could
+            run without ever opening the code.
           </p>
         </div>
 
