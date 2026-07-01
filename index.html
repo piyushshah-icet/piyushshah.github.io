@@ -77,8 +77,6 @@
             <ul class="dropdown-menu">
               <li><a href="projects/cascaded-pide-level-control.html">Cascaded PIDE Level Control</a></li>
               <li><a href="projects/ai-predictive-maintenance.html">AI-Assisted Predictive Maintenance</a></li>
-              <li><a href="projects/rtd-temperature-transmitter.html">RTD Temperature Transmitter</a></li>
-              <li><a href="projects/sfc-gate-control.html">Sequential Function Chart Gate Control</a></li>
               <li><a href="projects/pid-temperature-imc.html">Closed-Loop PID Temperature Control</a></li>
               <li class="dropdown-divider" aria-hidden="true"></li>
               <li><a class="dd-all" href="#projects">All projects</a></li>
@@ -135,7 +133,7 @@
         <div class="hero-stats reveal">
           <div><strong>Graduating Dec 2026</strong><span>Instrumentation &amp; Control Eng. Tech., RRC Polytech</span></div>
           <div><strong>2 industry roles</strong><span>BAS Controls Specialist + Electrical Technician</span></div>
-          <div><strong>5 documented projects</strong><span>PLC, HMI, analog design, and applied ML case studies</span></div>
+          <div><strong>3 documented projects</strong><span>PLC and HMI, applied ML, and control case studies</span></div>
           <div><strong>Controls + code</strong><span>Classical instrumentation backed by Python &amp; data skills</span></div>
         </div>
       </div>
@@ -252,56 +250,18 @@
 
           <a class="project-card reveal" href="projects/ai-predictive-maintenance.html">
             <div class="project-banner">
-              <img src="assets/images/projects/ai-predictive-maintenance.svg" alt="AI-assisted predictive maintenance system diagram" loading="lazy">
+              <img src="assets/images/projects/pm-labview-dashboard.png" alt="LabVIEW dashboard for the predictive maintenance system showing live RMS vibration and moving-average trend graphs" loading="lazy">
             </div>
             <div class="project-body">
               <p class="project-meta">Applied ML · Dec 2025 – Feb 2026</p>
               <h3>AI-Assisted Predictive Maintenance System</h3>
               <p>
-                Motor health monitoring with vibration, temperature, and current sensing: feature extraction,
-                a Random Forest fault classifier, tiered ISA-18.2 alarm logic, and a live Python Dash
-                SCADA-style dashboard.
+                Watching a motor for early signs of trouble using vibration, current, and temperature. An
+                Arduino gathers the data, LabVIEW shows it live and logs it, and a Random Forest model in
+                Python calls the motor healthy or faulty.
               </p>
               <ul class="project-tags">
-                <li>Python</li><li>scikit-learn</li><li>Arduino</li><li>Dash</li>
-              </ul>
-              <span class="project-link">Read case study</span>
-            </div>
-          </a>
-
-          <a class="project-card reveal" href="projects/rtd-temperature-transmitter.html">
-            <div class="project-banner">
-              <img src="assets/images/projects/rtd-transmitter.svg" alt="RTD temperature transmitter signal chain diagram" loading="lazy">
-            </div>
-            <div class="project-body">
-              <p class="project-meta">Analog Design · Oct – Nov 2025</p>
-              <h3>RTD Temperature Transmitter: 4–20 mA Signal Conditioning</h3>
-              <p>
-                A ground-up analog transmitter converting RTD resistance changes into an industry-standard
-                4–20 mA current loop: instrumentation amplifier design, transistor loop driver, and
-                multi-point calibration verification.
-              </p>
-              <ul class="project-tags">
-                <li>RTD</li><li>4–20 mA</li><li>In-Amp</li><li>Calibration</li>
-              </ul>
-              <span class="project-link">Read case study</span>
-            </div>
-          </a>
-
-          <a class="project-card reveal" href="projects/sfc-gate-control.html">
-            <div class="project-banner">
-              <img src="assets/images/projects/sfc-gate-control.svg" alt="Sequential function chart gate control diagram" loading="lazy">
-            </div>
-            <div class="project-body">
-              <p class="project-meta">PLC Sequencing · Winter 2026</p>
-              <h3>Sequential Function Chart: Automated Gate Control</h3>
-              <p>
-                An IEC 61131-3 SFC program on CompactLogix implementing a multi-state gate sequence with
-                deterministic fault handling, safe-state transitions, alarm annunciation, and a dedicated
-                maintenance mode.
-              </p>
-              <ul class="project-tags">
-                <li>CompactLogix</li><li>Studio 5000</li><li>IEC 61131-3</li><li>SFC</li>
+                <li>Arduino</li><li>LabVIEW</li><li>Python</li><li>Random Forest</li>
               </ul>
               <span class="project-link">Read case study</span>
             </div>
@@ -309,15 +269,15 @@
 
           <a class="project-card reveal" href="projects/pid-temperature-imc.html">
             <div class="project-banner">
-              <img src="assets/images/projects/pid-hardware.jpg" alt="Heat block hardware for the closed-loop PID temperature control project" loading="lazy">
+              <img src="assets/images/projects/pid-tuning-map.png" alt="PI controller tuning map showing how proportional and integral action change the step response" loading="lazy">
             </div>
             <div class="project-body">
               <p class="project-meta">Control Theory · Apr 2026</p>
               <h3>Closed-Loop PID Temperature Control: IMC Tuning</h3>
               <p>
-                A PWM/MOSFET-driven heater under closed-loop PID control: open-loop step testing to identify
-                an FOPDT process model, IMC-derived tuning parameters, and documented step-response
-                validation.
+                A small heater that holds a set temperature. I measured how the heater actually behaves,
+                then tuned a controller with the IMC method so it reaches the target with barely any
+                overshoot.
               </p>
               <ul class="project-tags">
                 <li>PID</li><li>IMC Tuning</li><li>FOPDT</li><li>Arduino</li>
