@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bgc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1424"/>
+      <stop offset="1" stop-color="#10203a"/>
+    </linearGradient>
+    <marker id="arrc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#60a5fa"/>
+    </marker>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgc)"/>
+  <g stroke="#1d3354" stroke-width="1" opacity="0.5">
+    <path d="M0 90 H800 M0 180 H800 M0 270 H800 M0 360 H800"/>
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450"/>
+  </g>
+
+  <!-- header -->
+  <text x="40" y="46" fill="#cbd8ee" font-size="13" font-weight="600">4–20 mA CURRENT LOOP</text>
+  <text x="40" y="64" fill="#8fa6c6" font-size="11">SOURCE · MEASURE · VERIFY</text>
+
+  <!-- current loop wiring (clockwise) -->
+  <g fill="none" stroke="#60a5fa" stroke-width="2.5">
+    <path d="M108 250 V120 H250" marker-end="url(#arrc)"/>
+    <path d="M400 120 H470" marker-end="url(#arrc)"/>
+    <path d="M640 120 H692 V250" marker-end="url(#arrc)"/>
+    <path d="M692 250 H108" marker-end="url(#arrc)"/>
+  </g>
+
+  <!-- 24 VDC supply on the left leg -->
+  <g font-size="11" text-anchor="middle">
+    <rect x="66" y="182" width="84" height="60" rx="6" fill="#10243f" stroke="#3b5d8f" stroke-width="2"/>
+    <text x="108" y="208" fill="#e8eefb" font-weight="600">24 VDC</text>
+    <text x="108" y="226" fill="#8fa6c6" font-size="10">LOOP PWR</text>
+  </g>
+
+  <!-- transmitter (device under test) -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="250" y="94" width="150" height="52" rx="6" fill="#10243f" stroke="#2dd4bf" stroke-width="2.5"/>
+    <text x="325" y="116" fill="#e8eefb" font-weight="600">FIELD TRANSMITTER</text>
+    <text x="325" y="134" fill="#2dd4bf" font-size="11">4–20 mA · HART</text>
+  </g>
+
+  <!-- loop calibrator + DMM (test equipment) -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="470" y="94" width="170" height="52" rx="6" fill="#10243f" stroke="#2dd4bf" stroke-width="2.5"/>
+    <text x="555" y="116" fill="#e8eefb" font-weight="600">LOOP CALIBRATOR + DMM</text>
+    <text x="555" y="134" fill="#8fa6c6" font-size="10">SOURCE / READ · 250 Ω SENSE</text>
+  </g>
+
+  <!-- HART communicator clamped on the loop -->
+  <g>
+    <path d="M435 120 V206" stroke="#2dd4bf" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <circle cx="435" cy="120" r="4" fill="#2dd4bf"/>
+    <rect x="350" y="206" width="200" height="58" rx="6" fill="#0e1b30" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="466" y="228" fill="#2dd4bf" font-size="12" font-weight="600" text-anchor="middle">HART COMMUNICATOR</text>
+    <text x="466" y="246" fill="#9fb2cc" font-size="10" text-anchor="middle">DIGITAL CONFIG · RE-RANGE</text>
+    <!-- tiny digital square wave -->
+    <path d="M364 250 h8 v-14 h8 v14 h8 v-14 h8 v14 h8" fill="none" stroke="#2dd4bf" stroke-width="1.6"/>
+  </g>
+
+  <!-- current label -->
+  <text x="400" y="270" fill="#8fa6c6" font-size="11" text-anchor="middle">SERIES LOOP CURRENT</text>
+
+  <!-- four instrument categories -->
+  <g font-size="11" text-anchor="middle" fill="#cbd8ee">
+    <rect x="60" y="322" width="150" height="30" rx="15" fill="#10243f" stroke="#3b5d8f" stroke-width="1.6"/>
+    <text x="135" y="341">TEMPERATURE</text>
+    <rect x="228" y="322" width="150" height="30" rx="15" fill="#10243f" stroke="#3b5d8f" stroke-width="1.6"/>
+    <text x="303" y="341">PRESSURE</text>
+    <rect x="396" y="322" width="150" height="30" rx="15" fill="#10243f" stroke="#3b5d8f" stroke-width="1.6"/>
+    <text x="471" y="341">LEVEL / FLOW</text>
+    <rect x="564" y="322" width="176" height="30" rx="15" fill="#10243f" stroke="#2dd4bf" stroke-width="1.6"/>
+    <text x="652" y="341" fill="#2dd4bf">CONTROL VALVE</text>
+  </g>
+
+  <text x="40" y="410" fill="#e8eefb" font-size="22" font-weight="700">Field Instrument Calibration</text>
+  <text x="40" y="432" fill="#2dd4bf" font-size="13" letter-spacing="2">4–20 mA · HART · AS-FOUND / AS-LEFT</text>
+</svg>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case study: bench and lab calibration and loop verification of 4-20 mA field instruments (temperature, pressure, level/flow, and a control valve) with HART configuration and as-found/as-left documentation, by Piyush Shah." />
+  <title>Field Instrument Calibration & Loop Verification | Piyush Shah</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="canonical" href="https://piyushshah.ca/projects/field-instrument-calibration.html" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') !== 'dark') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar">
+      <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="true">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li class="nav-dropdown">
+            <button class="nav-dropbtn" aria-haspopup="true" aria-expanded="false">Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="cascaded-pide-level-control.html">Cascaded PIDE Level Control</a></li>
+              <li><a href="ai-predictive-maintenance.html">AI-Assisted Predictive Maintenance</a></li>
+              <li><a href="pid-temperature-imc.html">Closed-Loop PID Temperature Control</a></li>
+              <li><a href="field-instrument-calibration.html">Field Instrument Calibration</a></li>
+              <li class="dropdown-divider" aria-hidden="true"></li>
+              <li><a class="dd-all" href="../index.html#projects">All projects</a></li>
+            </ul>
+          </li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
+        <p class="eyebrow">Project Case Study · Winter 2026</p>
+        <h1>Field Instrument Calibration &amp; Loop Verification</h1>
+        <p class="lede">
+          Bench and lab calibration of live 4–20 mA instruments across the full span of field instrumentation.
+          The work covers all four instrument categories a plant depends on: temperature, pressure, level or
+          flow, and a final control element. Each device was calibrated against traceable test equipment and
+          documented with as-found and as-left records to standard industrial practice, and HART-capable
+          transmitters were configured and re-ranged digitally over the loop.
+        </p>
+        <div class="project-facts">
+          <div><strong>Signal</strong><span>4–20 mA, 2-wire loop</span></div>
+          <div><strong>Configuration</strong><span>HART digital re-range</span></div>
+          <div><strong>Documentation</strong><span>As-found / as-left</span></div>
+          <div><strong>Scope</strong><span>Four instrument categories</span></div>
+        </div>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/field-calibration-loop.svg" alt="Diagram of a 4-20 mA current loop with a field transmitter, a loop calibrator and multimeter, and a HART communicator for digital configuration, above the four instrument categories calibrated" />
+          <figcaption>The test setup: a 4–20 mA series loop with a calibrator and multimeter to source and read the signal, and a HART communicator for digital configuration of HART-capable devices.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-pad" style="padding-top: 48px;">
+      <div class="container project-content">
+        <h2>Scope</h2>
+        <p>
+          The project treats calibration as it is handled on the plant floor: verify what the instrument
+          currently reads, correct it if it is out of tolerance, and record both states. Three of the four
+          devices are measurement instruments that convert a process variable into a 4–20 mA signal. The
+          fourth is a final control element, verified by its response to the signal rather than by measurement.
+          Every result is captured as-found and as-left so the record shows the condition on arrival and the
+          condition after adjustment.
+        </p>
+
+        <h2>HART configuration over the loop</h2>
+        <p>
+          Where instruments were HART-capable, configuration and re-ranging were carried out digitally over the
+          same 4–20 mA loop with a HART communicator, rather than by adjusting zero and span in hardware. This
+          included reading the device tag and diagnostics, setting the lower and upper range values, and
+          confirming the analog output tracked the reconfigured range. Digital re-ranging over the live loop is
+          standard on modern instrumentation and is the practical difference between bench-only calibration and
+          working the way a plant actually maintains its devices.
+        </p>
+
+        <h2>Test equipment</h2>
+        <p>
+          All calibrations used a loop calibrator to source and measure the 4–20 mA signal, a digital
+          multimeter for independent current and voltage verification, and a HART communicator for digital
+          configuration of HART-capable devices.
+        </p>
+        <figure class="project-figure">
+          <div style="min-height: 220px; display: flex; align-items: center; justify-content: center; background: var(--bg-soft); color: var(--muted); font-size: 0.92rem; text-align: center; padding: 24px; box-sizing: border-box;">
+            <span style="color: var(--accent-2); font-weight: 600;">[ TODO: insert a lab photo of the test setup (loop calibrator, DMM, HART communicator, instrument under test) ]</span>
+          </div>
+          <figcaption>Test bench with the loop calibrator, multimeter, and HART communicator.</figcaption>
+        </figure>
+
+        <h2>Temperature transmitter</h2>
+        <p>
+          A temperature transmitter converting a sensor input into a calibrated 4–20 mA output.
+        </p>
+        <ul>
+          <li>Instrument type: temperature transmitter. <span style="color: var(--accent-2); font-weight: 600;">[TODO: confirm sensor type (RTD or thermocouple) and model]</span></li>
+          <li>Measurement range: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert calibrated range, e.g. 0 to 150 °C]</span></li>
+          <li>Output signal: 4–20 mA, 2-wire; HART-capable.</li>
+          <li>Test equipment: loop calibrator, digital multimeter, HART communicator.</li>
+          <li>Result: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert as-found and as-left readings from the calibration sheet]</span></li>
+        </ul>
+        <figure class="project-figure">
+          <div style="min-height: 220px; display: flex; align-items: center; justify-content: center; background: var(--bg-soft); color: var(--muted); font-size: 0.92rem; text-align: center; padding: 24px; box-sizing: border-box;">
+            <span style="color: var(--accent-2); font-weight: 600;">[ TODO: insert as-found / as-left calibration sheet for the temperature transmitter ]</span>
+          </div>
+          <figcaption>As-found and as-left calibration record, temperature transmitter.</figcaption>
+        </figure>
+
+        <h2>Pressure transmitter</h2>
+        <p>
+          A pressure transmitter calibrated across its span and checked at multiple points.
+        </p>
+        <ul>
+          <li>Instrument type: pressure transmitter. <span style="color: var(--accent-2); font-weight: 600;">[TODO: confirm type (gauge, differential, absolute) and model]</span></li>
+          <li>Measurement range: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert calibrated range, e.g. 0 to 100 psi]</span></li>
+          <li>Output signal: 4–20 mA, 2-wire; HART-capable.</li>
+          <li>Test equipment: loop calibrator, digital multimeter, HART communicator.</li>
+          <li>Result: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert as-found and as-left readings from the calibration sheet]</span></li>
+        </ul>
+        <figure class="project-figure">
+          <div style="min-height: 220px; display: flex; align-items: center; justify-content: center; background: var(--bg-soft); color: var(--muted); font-size: 0.92rem; text-align: center; padding: 24px; box-sizing: border-box;">
+            <span style="color: var(--accent-2); font-weight: 600;">[ TODO: insert as-found / as-left calibration sheet for the pressure transmitter ]</span>
+          </div>
+          <figcaption>As-found and as-left calibration record, pressure transmitter.</figcaption>
+        </figure>
+
+        <h2>Level / flow instrument</h2>
+        <p>
+          A level or flow instrument, calibrated the same way as the other measurement transmitters.
+        </p>
+        <ul>
+          <li>Instrument type: <span style="color: var(--accent-2); font-weight: 600;">[TODO: level or flow type (e.g. differential-pressure, radar, magnetic) and model]</span></li>
+          <li>Measurement range: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert calibrated range]</span></li>
+          <li>Output signal: 4–20 mA. <span style="color: var(--accent-2); font-weight: 600;">[TODO: note whether HART-capable]</span></li>
+          <li>Test equipment: loop calibrator, digital multimeter, HART communicator.</li>
+          <li>Result: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert as-found and as-left readings from the calibration sheet]</span></li>
+        </ul>
+        <figure class="project-figure">
+          <div style="min-height: 220px; display: flex; align-items: center; justify-content: center; background: var(--bg-soft); color: var(--muted); font-size: 0.92rem; text-align: center; padding: 24px; box-sizing: border-box;">
+            <span style="color: var(--accent-2); font-weight: 600;">[ TODO: insert as-found / as-left calibration sheet for the level / flow instrument ]</span>
+          </div>
+          <figcaption>As-found and as-left calibration record, level / flow instrument.</figcaption>
+        </figure>
+
+        <h2>Control valve with positioner</h2>
+        <p>
+          The final control element is verified differently from the transmitters. Instead of calibrating a
+          measurement, the valve is checked for signal-to-position response: the positioner must drive the
+          valve to the correct opening for a given 4–20 mA command.
+        </p>
+        <ul>
+          <li>Instrument type: control valve with a positioner (final control element). <span style="color: var(--accent-2); font-weight: 600;">[TODO: valve and positioner model]</span></li>
+          <li>Input signal: 4–20 mA to the positioner.</li>
+          <li>Verification: valve stem position checked against the commanded signal at 0, 25, 50, 75, and 100 percent, confirming the positioner opened the valve to the correct position across the range.</li>
+          <li>Test equipment: loop calibrator to source the signal, digital multimeter for verification, HART communicator where the positioner was HART-capable.</li>
+          <li>Result: <span style="color: var(--accent-2); font-weight: 600;">[TODO: insert as-found and as-left position vs signal readings]</span></li>
+        </ul>
+        <figure class="project-figure">
+          <div style="min-height: 220px; display: flex; align-items: center; justify-content: center; background: var(--bg-soft); color: var(--muted); font-size: 0.92rem; text-align: center; padding: 24px; box-sizing: border-box;">
+            <span style="color: var(--accent-2); font-weight: 600;">[ TODO: insert as-found / as-left signal-to-position record for the control valve ]</span>
+          </div>
+          <figcaption>Signal-to-position verification record, control valve with positioner.</figcaption>
+        </figure>
+
+        <div class="skill-callout">
+          <h3>What this shows</h3>
+          <p>
+            End-to-end competence with the field instrumentation a plant runs on: calibrating the three primary
+            measurement types, verifying a final control element, working the 4–20 mA loop with a calibrator
+            and multimeter, configuring HART devices digitally over the loop, and recording every result
+            as-found and as-left to a standard that holds up in a calibration file.
+          </p>
+        </div>
+
+        <nav class="project-pager" aria-label="Project navigation">
+          <a href="pid-temperature-imc.html">
+            <span class="pager-label">← Previous project</span>
+            <span class="pager-title">Closed-Loop PID Temperature Control: IMC Tuning</span>
+          </a>
+          <a class="next" href="../index.html#projects">
+            <span class="pager-label">Finished reading →</span>
+            <span class="pager-title">Back to all projects</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="../index.html#projects">All projects</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

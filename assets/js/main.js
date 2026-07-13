@@ -56,6 +56,21 @@ document.addEventListener('click', (e) => {
   });
 });
 
+/* ---------- Back to top ---------- */
+/* The #top target is the sticky header, which browsers treat as already at
+   the top of the viewport, so a plain anchor jump does nothing. Scroll the
+   window to the real top instead. */
+document.querySelectorAll('a[href="#top"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    if (window.history && history.replaceState) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  });
+});
+
 /* ---------- Footer year ---------- */
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
@@ -85,6 +100,33 @@ if (typedTarget) {
     'Allen-Bradley CompactLogix & FactoryTalk HMI',
     'Python, Data & Machine Learning for Automation'
   ];
+
+  // Reserve the height of the tallest phrase so the cycling text never
+  // reflows the page (avoids the up/down shift, especially on mobile where
+  // phrases wrap to two lines).
+  const headline = typedTarget.parentElement;
+
+  function reserveTypedHeight() {
+    const saved = typedTarget.textContent;
+    headline.style.minHeight = '0px';
+    let max = 0;
+    phrases.forEach(function (p) {
+      typedTarget.textContent = p;
+      if (headline.offsetHeight > max) max = headline.offsetHeight;
+    });
+    typedTarget.textContent = saved;
+    headline.style.minHeight = max + 'px';
+  }
+
+  reserveTypedHeight();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(reserveTypedHeight);
+  }
+  let resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(reserveTypedHeight, 150);
+  });
 
   let phraseIndex = 0;
   let charIndex = 0;
