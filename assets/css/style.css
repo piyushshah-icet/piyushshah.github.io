@@ -276,6 +276,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   height: 168px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 25%;
   margin: 0 auto 16px;
   border: 3px solid var(--accent);
 }
