@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Capstone case study: automating a four-way permanent mold casting table with an Allen-Bradley Micro850, ultrasonic position feedback, and recipe-driven control from an Optix HMI, by Piyush Shah." />
+  <title>Digitizing a Four-Way Casting Table | Piyush Shah</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="canonical" href="https://piyushshah.ca/projects/four-way-table-automation.html" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') !== 'dark') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar">
+      <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="true">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li class="nav-dropdown">
+            <button class="nav-dropbtn" aria-haspopup="true" aria-expanded="false">Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="cascaded-pide-level-control.html">Cascaded PIDE Level Control</a></li>
+              <li><a href="industrial-robotics.html">Industrial Robot Programming</a></li>
+              <li><a href="four-way-table-automation.html">Four-Way Casting Table (Capstone)</a></li>
+              <li><a href="pid-temperature-imc.html">Closed-Loop PID Temperature Control</a></li>
+              <li class="dropdown-divider" aria-hidden="true"></li>
+              <li><a class="dd-all" href="../index.html#projects">All projects</a></li>
+            </ul>
+          </li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
+        <p class="eyebrow">Capstone Case Study · Sept – Dec 2026 · In progress</p>
+        <h1>Digitizing a Four-Way Casting Table</h1>
+        <p class="lede">
+          A foundry pours aluminum into permanent molds on a four-way table, and right now an operator runs the
+          whole cycle by hand. We are replacing that with a PLC and an HMI, where the mold tells the controller
+          which mold it is and the controller loads the right positions, order and timings for it. The software
+          is written and running on a bench. The panel has not been delivered yet, so wiring and commissioning
+          are still ahead. This is my capstone, done with a project partner.
+        </p>
+        <div class="project-facts">
+          <div><strong>Controller</strong><span>Micro850 with analog, TC and relay expansion</span></div>
+          <div><strong>Feedback</strong><span>Four ultrasonic sensors, 4 to 20 mA</span></div>
+          <div><strong>Interface</strong><span>7 inch HMI, recipe driven</span></div>
+          <div><strong>Status</strong><span>In progress, panel on order</span></div>
+        </div>
+        <figure class="project-figure" style="max-width: 520px; margin-left: auto; margin-right: auto;">
+          <img src="../assets/images/projects/capstone-table.jpg" alt="The four-way casting table, a blue steel frame with a steel permanent mold sitting on the deck, hydraulic actuator rods entering from either side, and a pushbutton enclosure bolted to the frame" />
+          <figcaption>The table as it runs today. A mold on the deck, hydraulic rods pushing the cheeks in from either side, and a pushbutton enclosure on the frame. Every decision in the cycle is currently the operator's.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-pad" style="padding-top: 48px;">
+      <div class="container project-content">
+        <h2>What the machine does</h2>
+        <p>
+          A permanent mold is a steel mold that gets reused instead of being rebuilt out of sand every pour. The
+          table holds one, and the moving sides of it, called cheeks, are pushed in and out by hydraulic
+          cylinders. The cycle has the same shape every time: close the mold, pour the metal, spray water on the
+          outside to pull heat out, let it sit, crack the mold open slightly to confirm the casting released,
+          open the rest of the way, take the part out.
+        </p>
+        <p>
+          What is not the same every time is the mold. The shop runs several. Some have two moving cheeks, some
+          three, some four. Each has its own travel distances, its own order for which cheek moves first, and
+          its own cooling and dwell times. Run that by hand and the cycle is only as repeatable as the person
+          running it, and a new operator has to learn each mold on its own.
+        </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/capstone-block-diagram.png" alt="System block diagram showing thermocouples, mold plug-in encoder, panel switches and ultrasonic sensors feeding a Micro850 PLC, which drives hydraulic actuators, a water solenoid and indicator lights, with an HMI on Ethernet" />
+          <figcaption>What goes in its place. Everything the controller reads on the left, everything it drives on the right, and the HMI over Ethernet carrying the recipes.</figcaption>
+        </figure>
+
+        <h2>One program, a recipe per mold</h2>
+        <p>
+          The whole design rests on one decision: nothing about a specific mold lives in the PLC code. The
+          program knows how to move a cheek to a position and how to run a cycle. The numbers that make it a
+          particular mold, which is six positions for each of four cheeks, which cheeks move together, and the
+          water and dwell times, all sit in a recipe on the HMI.
+        </p>
+        <p>
+          The mold identifies itself. A six-pin connector on the mold is wired as a binary code, so plugging it
+          in writes a number between 1 and 63 into the controller, and that number picks the recipe. Nothing
+          plugged in reads as zero, and zero blocks automatic motion entirely, which means a mold that is not
+          properly connected cannot be run.
+        </p>
+        <p>
+          The six positions are fully open, end of cycle, spraying, heating, cracked open and fully closed.
+          Adding a new mold to the shop becomes a job for whoever runs the HMI rather than a job for whoever
+          wrote the program. That was the point of doing it this way.
+        </p>
+        <figure class="project-figure" style="max-width: 560px; margin-left: auto; margin-right: auto;">
+          <img src="../assets/images/projects/capstone-sequence-flow.png" alt="Operating sequence flowchart running from the hand-off-auto switch through mold detection, recipe lookup, prework positioning, the start confirmation, closing, pouring, water and dwell timers, cracking the mold open, opening and part removal" />
+          <figcaption>The operating sequence. The recipe database on the left feeds positions, order and timer durations into the cycle, and the two operator confirmations, START and STEP, are the points where the machine waits for a person.</figcaption>
+        </figure>
+
+        <h2>Position feedback, and why not limit switches</h2>
+        <p>
+          Limit switches are the obvious answer to "is the cheek where it should be", and they were the wrong
+          answer here. Six positions across four cheeks is twenty four switches, and since every mold has its
+          own geometry you would need a different set of them for every mold in the shop.
+        </p>
+        <p>
+          We used ultrasonic distance sensors instead, one per actuator, feeding 4 to 20 mA into the analog
+          card. Position becomes a number in millimetres, so a recipe can ask for any position it likes without
+          anybody touching the hardware.
+        </p>
+        <p>
+          The detail that took the most thought was what the sensor actually looks at. Aiming it at the cheek
+          means the reflecting surface changes with every mold, and ultrasonic sensors are fussy about that. So
+          the sensors point at a flat target plate mounted on the actuator rod. Same surface, same angle, every
+          mold, and the plate moves with the cheek so the reading is still real position.
+        </p>
+        <p>
+          The sensor repeats to about half a percent of its range, which works out to roughly four millimetres,
+          so the software calls a move complete inside a five millimetre band around the target rather than
+          chasing an exact number. A move is also given a second to settle before the position is trusted,
+          because the sensor only updates twice a second and hydraulics do not stop the instant the valve
+          closes.
+        </p>
+
+        <h2>A sequence without a sequence editor</h2>
+        <p>
+          A casting cycle is a sequence, and a sequential function chart is the natural way to write one. The
+          version of the programming software this project uses is the free one, and it has no SFC editor.
+        </p>
+        <p>
+          So we built the same structure in ladder by hand. An integer holds the current step. One set of rungs
+          does the work for whichever step is active, a separate set watches for the condition that ends it and
+          moves the counter on. Six steps: close to position, wait for the pour, run water, dwell, crack open,
+          return to end of cycle. It is more verbose than drawing a chart, but it reads in order and anybody
+          with the free software can open it and follow it.
+        </p>
+        <p>
+          The rest of the program is split by what it does rather than by what it controls, so each piece can be
+          read on its own. Signal conditioning turns raw counts into millimetres and degrees. Limit calculation
+          works out the deadband around the target. The motion blocks are user-defined function blocks, so one
+          block covers moving any cheek to any position instead of twenty four near-identical rungs.
+        </p>
+        <figure class="project-figure" style="max-width: 380px; margin-left: auto; margin-right: auto;">
+          <img src="../assets/images/projects/capstone-project-tree.png" alt="Micro850 project tree listing programs for state control, order of operation, manual mode, custom positions, limit calculator, timer preset building, signal conditioning, timers, outputs, parts counters, alarms and encoder reading, plus user-defined function blocks for cheek movement, signal conversion and relay fault assessment" />
+          <figcaption>The program structure. Each program does one job, and the reusable motion and conversion logic sits in user-defined function blocks underneath.</figcaption>
+        </figure>
+
+        <h2>Where the operator stays in the loop</h2>
+        <p>
+          Pouring is done by a person with a ladle. The controller has no way to know the metal actually went
+          in, so it does not pretend to. The cycle stops and waits for a button twice: once before it closes the
+          mold, and once after the pour.
+        </p>
+        <p>
+          The crack open step exists for the same reason. Castings sometimes stick, and somebody needs to look
+          before the mold opens all the way. If it did not release, there is a recovery mode that lets the
+          cheeks close freely but only open as far as the end of cycle position, so a person working a stuck
+          casting loose cannot accidentally drive a cheek out to its stop.
+        </p>
+        <p>
+          Mold temperature is read and displayed but does not hold the cycle. The client asked for it that way,
+          since they judge the mold by eye and did not want a new reason for the machine to stop on them. It is
+          a reasonable call for a first installation, and it is the sort of thing that can become an interlock
+          later once there is real data behind a number.
+        </p>
+
+        <h2>Interlocks, and saying the same thing twice</h2>
+        <p>
+          Commands do not go straight to the valves. Readings are conditioned first, then either the sequence or
+          the manual logic forms a command, then the motion blocks decide whether that command should still be
+          running, and only the last layer energizes anything.
+        </p>
+        <p>
+          Every output rung carries the opposite direction as a normally closed contact, so the open and close
+          solenoids on one cylinder can never both be energized no matter what the logic upstream asked for. The
+          same interlock already exists in the command logic. Duplicating it is deliberate. One of them is the
+          design, and the other is what catches the design being wrong.
+        </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/capstone-outputs-ladder.png" alt="Ladder logic from the outputs program showing auto and manual conditions gated by the hand-off-auto switch, with each direction's output rung interlocked against the opposite direction through a normally closed contact" />
+          <figcaption>The output layer. Auto and manual paths are gated by the key switch, and each direction is interlocked against the other before anything is energized.</figcaption>
+        </figure>
+
+        <h2>Knowing when something is wrong</h2>
+        <ul>
+          <li>A move that does not finish in its allotted time raises a major alarm and stops the cycle. That
+            one condition covers a stuck cylinder, a failed sensor and a mechanical jam.</li>
+          <li>The relay output module reports the real state of each contact. Comparing what was commanded
+            against what came back, with a short filter so normal switching does not trip it, catches a welded
+            contact or an open coil.</li>
+          <li>A distance reading outside the sensor's valid range means something is in front of it, which on a
+            casting floor usually means spatter or a dropped tool.</li>
+        </ul>
+
+        <h2>The stop that does not go through the PLC</h2>
+        <p>
+          The emergency stop is hardwired through a safety relay that removes power from the output devices. It
+          does not pass through the controller and it does not depend on the program still scanning. The PLC
+          sees that the stop was pressed so the HMI can say so, but the stopping itself happens either way.
+        </p>
+        <p>
+          That distinction matters more here than on anything else I have built. Hydraulic cylinders and molten
+          aluminum in a jurisdiction with real machine guarding regulation means the risk assessment comes
+          first and the design follows it, rather than being written up at the end to match what got built.
+        </p>
+
+        <h2>Where it actually stands</h2>
+        <p>
+          As of October 2026:
+        </p>
+        <ul>
+          <li>Control narrative, I/O list, program structure and HMI screens are done.</li>
+          <li>The ladder logic is written and exercises correctly on the bench.</li>
+          <li>The panel is on order and the delivery date has slipped more than once. It is the only thing on
+            the critical path.</li>
+          <li>Several recipe values are placeholders. The real position numbers get measured off the machine
+            once the sensors are mounted.</li>
+          <li>Wiring, cold dry runs on hydraulics without metal, hot commissioning and operator handover are all
+            still ahead.</li>
+        </ul>
+        <p>
+          We set the bench up on purpose so the software would not sit idle waiting on a shipment: a spare
+          controller, the HMI, a loop calibrator driving the analog inputs, and spare sensors. Most of what is
+          described above has been run that way. That is not the same as proving it on the machine, but it is
+          the difference between showing up to wire a panel with untested code and showing up with code that
+          only needs the real signals.
+        </p>
+
+        <div class="skill-callout">
+          <h3>What this shows</h3>
+          <p>
+            Taking a manual machine and a loose goal and turning it into an I/O list, a control narrative and a
+            program somebody else can maintain. Picking feedback that suits the problem instead of the obvious
+            one, keeping machine-specific data out of the code, building a sequence without the editor made for
+            it, deciding where a person has to stay in the loop, and knowing which part of a stop belongs in
+            hardware.
+          </p>
+        </div>
+
+        <nav class="project-pager" aria-label="Project navigation">
+          <a href="industrial-robotics.html">
+            <span class="pager-label">← Previous project</span>
+            <span class="pager-title">Industrial Robot Programming and Cell Integration</span>
+          </a>
+          <a class="next" href="pid-temperature-imc.html">
+            <span class="pager-label">Next project →</span>
+            <span class="pager-title">Closed-Loop PID Temperature Control: IMC Tuning</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="../index.html#projects">All projects</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

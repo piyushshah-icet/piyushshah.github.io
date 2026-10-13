@@ -98,7 +98,7 @@ if (typedTarget) {
     'Instrumentation & Control Engineering Technologist',
     'BAS Controls · BACnet · Modbus Commissioning',
     'Allen-Bradley CompactLogix & FactoryTalk HMI',
-    'Python, Data & Machine Learning for Automation'
+    'Machine Control · PLC, HMI & Safety Design'
   ];
 
   // Reserve the height of the tallest phrase so the cycling text never

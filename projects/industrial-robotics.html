@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case study: programming a Yaskawa Motoman 6-axis industrial robot in INFORM on the teach pendant, and building a PLC-commanded pick-and-place cell with an interrupt-driven emergency stop, by Piyush Shah." />
+  <title>Industrial Robot Programming &amp; Cell Integration | Piyush Shah</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="canonical" href="https://piyushshah.ca/projects/industrial-robotics.html" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') !== 'dark') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar">
+      <a href="../index.html" class="brand">Piyush<span> Shah</span></a>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle light and dark theme" aria-pressed="true">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li class="nav-dropdown">
+            <button class="nav-dropbtn" aria-haspopup="true" aria-expanded="false">Projects <span class="caret" aria-hidden="true"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="cascaded-pide-level-control.html">Cascaded PIDE Level Control</a></li>
+              <li><a href="industrial-robotics.html">Industrial Robot Programming</a></li>
+              <li><a href="four-way-table-automation.html">Four-Way Casting Table (Capstone)</a></li>
+              <li><a href="pid-temperature-imc.html">Closed-Loop PID Temperature Control</a></li>
+              <li class="dropdown-divider" aria-hidden="true"></li>
+              <li><a class="dd-all" href="../index.html#projects">All projects</a></li>
+            </ul>
+          </li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a class="nav-resume" href="../resume/Piyush_Shah_Resume.pdf" download>Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a class="breadcrumb" href="../index.html#projects">← Back to all projects</a>
+        <p class="eyebrow">Project Case Study · Jan – Mar 2026</p>
+        <h1>Industrial Robot Programming and Cell Integration</h1>
+        <p class="lede">
+          Two robotics projects from the same course. One was thirty hours on a Yaskawa Motoman, learning to
+          jog it, teach points, and write jobs on the pendant. The other was building a small work cell around a
+          six-axis arm: an Arduino running the motion, a Siemens PLC and HMI giving the commands over hardwired
+          I/O, and an emergency stop on a hardware interrupt. Both were done with a lab partner.
+        </p>
+        <div class="project-facts">
+          <div><strong>Robot</strong><span>Yaskawa Motoman, 6-axis</span></div>
+          <div><strong>Programming</strong><span>INFORM, teach pendant</span></div>
+          <div><strong>Integration</strong><span>Siemens PLC/HMI, Arduino cell</span></div>
+          <div><strong>Timeline</strong><span>Jan – Mar 2026</span></div>
+        </div>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/robotics-lab.jpg" alt="Robotics lab with two blue Yaskawa Motoman six-axis arms on benches and a student holding a teach pendant" />
+          <figcaption>The lab. Blue Motoman arms, a pendant in your hands, and a foam block to practise on.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-pad" style="padding-top: 48px;">
+      <div class="container project-content">
+        <h2>Programming the Motoman</h2>
+        <p>
+          Ten three-hour sessions. The first thing you learn is where the robot is allowed to be: the maximum
+          envelope it can physically reach, the operating envelope it works inside, and the restricted zones it
+          has to stay out of, because that is where the panels, the fixtures and the people are.
+        </p>
+        <p>
+          Teaching runs through the three-position switch on the back of the pendant. Only the middle position
+          lets the servos move. Let go and it stops. Squeeze it hard and it stops. The robot moves while
+          somebody is deliberately holding it, and not otherwise.
+        </p>
+        <p>
+          Jogging works in several frames, tool, joint and user, with a pointer attachment defining the tool
+          center point. The frame you pick changes what the arrow keys actually do, so switching between them
+          without thinking about it is most of getting the arm where you want it.
+        </p>
+
+        <h2>The jobs</h2>
+        <p>
+          A job in INFORM opens with NOP, runs down numbered steps and finishes at END. What I used in them:
+        </p>
+        <ul>
+          <li>MOVJ for fast joint moves, MOVL for straight lines, MOVC for arcs off three points, MOVS for
+            curves.</li>
+          <li>Position level to control accuracy. PL = 0 lands exactly on a taught point, which is what a pick
+            or a place needs. A higher PL rounds the corner and saves cycle time where precision does not
+            matter.</li>
+          <li>IF, WAIT UNTIL, TIMER and PAUSE for logic and timing.</li>
+          <li>JUMP and LABEL to loop a cycle, and sub-jobs called from a master job.</li>
+          <li>Gripper open and close, plus reading inputs and writing outputs.</li>
+        </ul>
+        <p>
+          Then the applications. A foam cube moved corner to corner on a loop. Paper cups stacked into a pyramid
+          and shifted across the table, which is palletizing in miniature. Four letters traced from taught
+          points, each letter its own job, called in order by a master job.
+        </p>
+        <p>
+          All of them had the same shape: start at home, move above the part, drop straight in, grip, lift
+          clear, transfer, approach the drop-off from above, release, retreat, go home. That shape is the part
+          that transfers to any robot.
+        </p>
+        <p>
+          The I/O work used eight switches and eight lamps, read with IF and WAIT UNTIL, written with OT# for a
+          single output or OG# for a group by binary weight. It is a trainer panel, but the handshake is the
+          real one: wait for the signal that says the part is there, do your bit, set an output so the next
+          machine can move.
+        </p>
+
+        <h2>When it alarms</h2>
+        <p>
+          Robots stop, and getting them going again is the job. We went through the alarm classes and what each
+          needs, from a reset, to a cancel on a minor error, to recording the code and escalating a major fault.
+          My own troubleshooting was duller than that and probably more typical: a taught point slightly off, a
+          C-move missing its third point, I/O logic waiting on a bit that was never coming.
+        </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/robotics-pendant-alarm.jpg" alt="Motoman teach pendant screen showing an active alarm list with fault codes" />
+          <figcaption>An alarm on the pendant. Reading the code is step one, working out whether it is the program, the robot or something else in the cell is step two.</figcaption>
+        </figure>
+
+        <h2>Building a cell around a small arm</h2>
+        <p>
+          The second project came at it from the other end. Instead of programming a finished robot, I built the
+          system around a small six-axis arm.
+        </p>
+        <figure class="project-figure">
+          <img src="../assets/images/projects/robotics-arm-joints.png" alt="Labelled six-axis arm showing base, shoulder, elbow, wrist, wrist rotation and gripper" />
+          <figcaption>The arm in the cell. Base, shoulder, elbow, wrist, wrist rotation, gripper, each one a servo the controller has to drive in step.</figcaption>
+        </figure>
+        <p>
+          A Siemens PLC and HMI give the operator start, stop and a speed choice. Those leave as discrete
+          signals, land on a colour-coded DIN-rail terminal strip, and are read by an Arduino that runs the
+          motion. A level switch tells it a part has arrived. The emergency stop button goes to an interrupt
+          pin. Everything lands on the terminal strip rather than running point to point, so somebody who did
+          not build it can still trace it.
+        </p>
+        <p>
+          The motion itself is a table. Thirteen poses, one array per joint, stepped through by index, with a
+          separate function doing each move and re-checking the safety state before it commits. Re-teaching the
+          cell means editing numbers, not rewriting logic. It is the same reason industrial robots keep
+          position data out of the program flow. The part being handled was modelled in Solid Edge and 3D
+          printed, then the grip was tuned around the real thing rather than the drawing.
+        </p>
+
+        <h2>The e-stop, and where it stops being real safety</h2>
+        <p>
+          The interrupt routine does one thing: set a flag. The response runs in the main loop, holding the base
+          and wrist where they are, lowering the arm to the surface, opening the gripper so the part is set down
+          instead of dropped, then latching everything until someone resets it. The normal stop behaves
+          differently and lets the cycle finish before sending the arm home.
+        </p>
+        <p>
+          Worth saying plainly: that is emergency stop logic, not a compliant safety system. On a real cell the
+          stop has to be hardwired through a safety relay that removes power, rated to whatever the risk
+          assessment calls for, and it cannot depend on firmware still running. The sequencing belongs in
+          software. The stopping does not.
+        </p>
+
+        <h2>The fault that was not software</h2>
+        <p>
+          For a while the shoulder joint would not hold position under load and the arm kept sagging, which made
+          repeatable motion impossible. It looked like a control problem. It was a gear that needed securing and
+          a support spring that had come off. We fixed the mechanism and the cycle went repeatable in both speed
+          modes.
+        </p>
+        <p>
+          Two others cost real time. The servo library and the external interrupt were competing for the same
+          hardware, so the I/O had to be remapped to keep a proper interrupt pin free for the e-stop. And the
+          part sensor kept triggering on noise until the switch was moved and debounced in software. What stuck
+          with me is to work out which layer the fault is in before changing anything, because no amount of
+          careful code fixes a spring that fell off.
+        </p>
+
+        <h2>What carries over to other robots</h2>
+        <p>
+          The pendant language changes between manufacturers. The rest of it does not. Frames and a defined tool
+          point, taught points with deliberate approach and retreat moves, accuracy traded against cycle time,
+          I/O handshaking with the machines around the robot, a known home position, and the safety discipline.
+          My programming hours are on Yaskawa, so another controller would mean learning its specifics, but the
+          thinking underneath is the same and the integration side is where I have spent the most time.
+        </p>
+
+        <div class="skill-callout">
+          <h3>What this shows</h3>
+          <p>
+            Programming a real industrial robot on its pendant, and building the system around one: wiring and
+            documenting the interface, handshaking over discrete I/O, keeping position data out of the program
+            flow, deciding what happens when somebody hits the stop button, and tracking a fault to the layer it
+            actually lives in.
+          </p>
+        </div>
+
+        <nav class="project-pager" aria-label="Project navigation">
+          <a href="cascaded-pide-level-control.html">
+            <span class="pager-label">← Previous project</span>
+            <span class="pager-title">Cascaded PIDE Level Control with FactoryTalk HMI</span>
+          </a>
+          <a class="next" href="four-way-table-automation.html">
+            <span class="pager-label">Next project →</span>
+            <span class="pager-title">Digitizing a Four-Way Casting Table</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Piyush Shah · Winnipeg, MB</p>
+      <a href="../index.html#projects">All projects</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

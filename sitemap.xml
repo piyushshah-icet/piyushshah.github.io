@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://piyushshah.ca/</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -11,9 +11,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://piyushshah.ca/projects/ai-predictive-maintenance.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <loc>https://piyushshah.ca/projects/industrial-robotics.html</loc>
+    <lastmod>2026-10-12</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://piyushshah.ca/projects/four-way-table-automation.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://piyushshah.ca/projects/pid-temperature-imc.html</loc>
